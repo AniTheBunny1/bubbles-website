@@ -109,14 +109,13 @@ export function Waitlist() {
         </p>
 
         {status === "success" ? (
-          <motion.div 
+          <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-green-50 border border-green-200 text-green-800 rounded-2xl py-6 px-4"
+            className="text-xl md:text-2xl font-medium text-gray-800 py-6"
           >
-            <h3 className="text-xl font-semibold mb-2">You're on the list! 🎉</h3>
-            <p className="text-green-700">We'll reach out to you as soon as a spot opens up.</p>
-          </motion.div>
+            🫧 You're on the waitlist
+          </motion.p>
         ) : (
           <form className="max-w-md mx-auto space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-4">
