@@ -1,0 +1,100 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+export function Waitlist() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+
+    try {
+      const url = process.env.NEXT_PUBLIC_GOOGLE_WEBHOOK_URL;
+      if (!url) throw new Error("Webhook URL missing");
+
+      // We use no-cors because Google Scripts redirects to an HTML page with CORS headers that break fetch, 
+      // but it still successfully processes the POST data.
+      await fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ email: email as string, phone: phone as string }),
+      });
+
+      setStatus("success");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
+  };
+
+  return (
+    <section id="waitlist" className="py-32 px-4 relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="max-w-2xl mx-auto glass-card rounded-[3rem] p-10 md:p-16 text-center"
+      >
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+          Join the Swarm.
+        </h2>
+        <p className="text-gray-500 mb-10">
+          Spots for the private beta are extremely limited.
+        </p>
+
+        {status === "success" ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-green-50 border border-green-200 text-green-800 rounded-2xl py-6 px-4"
+          >
+            <h3 className="text-xl font-semibold mb-2">You're on the list! 🎉</h3>
+            <p className="text-green-700">We'll reach out to you as soon as a spot opens up.</p>
+          </motion.div>
+        ) : (
+          <form className="max-w-md mx-auto space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <input 
+                name="email"
+                type="email" 
+                placeholder="Email address" 
+                className="w-full px-6 py-4 rounded-2xl bg-white/50 border border-white/60 focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-gray-800 placeholder:text-gray-400 backdrop-blur-sm"
+                required
+              />
+              <input 
+                name="phone"
+                type="tel" 
+                placeholder="Phone number" 
+                className="w-full px-6 py-4 rounded-2xl bg-white/50 border border-white/60 focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-gray-800 placeholder:text-gray-400 backdrop-blur-sm"
+                required
+              />
+            </div>
+            
+            <button 
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full bg-black text-white font-medium py-4 rounded-2xl hover:bg-gray-800 transition-colors mt-6 shadow-lg shadow-black/10 disabled:opacity-70 flex items-center justify-center gap-2"
+            >
+              {status === "loading" ? "Joining..." : "Request Early Access"}
+            </button>
+            
+            {status === "error" && (
+              <p className="text-red-500 text-sm mt-4">Something went wrong. Please try again.</p>
+            )}
+          </form>
+        )}
+
+      </motion.div>
+    </section>
+  );
+}
