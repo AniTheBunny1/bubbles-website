@@ -8,22 +8,23 @@ export function Navbar() {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="fixed top-0 w-full z-50 px-6 py-6 flex items-center justify-center"
+      className="fixed top-0 w-full z-50 px-5 md:px-10 py-3 flex items-center justify-between"
     >
-      {/* Top Left Logo */}
-      <div className="absolute left-6 md:left-10 top-2 flex items-center">
-        <img 
-          src="/hems-logo.png" 
-          alt="Hems Logo" 
-          className="h-24 w-auto object-contain"
-        />
-      </div>
+      {/* Left: Hems Logo */}
+      <img 
+        src="/hems-logo.png" 
+        alt="Hems Logo" 
+        className="h-16 md:h-20 w-auto object-contain"
+      />
 
+      {/* Right: CTA Button */}
       <button 
         onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
-        className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-black/10">
+        className="bg-black text-white px-6 py-3 rounded-full text-sm md:text-base font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-black/10 whitespace-nowrap"
+      >
         Join Public Beta
       </button>
     </motion.nav>
   );
 }
+

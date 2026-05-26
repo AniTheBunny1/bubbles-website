@@ -77,7 +77,7 @@ export function Conversation() {
             className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed space-y-2"
           >
             Bubbles is a personal AI companion built directly into WhatsApp.
-            It helps you manage everyday life through simple conversation — from solving online quizzes and research,
+            It helps you manage everyday life through simple conversation: from solving online quizzes and research,
             to ordering food on Swiggy or groceries online.
             <br /><br />
             Over time, it learns your habits, routines, and preferences so support feels personal and natural.

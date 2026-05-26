@@ -1,13 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  
+  // Transform values based on scroll position
+  const scale = useTransform(scrollY, [0, 500], [1, 0.8]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const y = useTransform(scrollY, [0, 500], [0, 50]);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-20">
       
       {/* Logo Image */}
       <motion.div
+        style={{ scale, opacity, y }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
@@ -21,7 +29,10 @@ export function Hero() {
       </motion.div>
 
       {/* Text Content */}
-      <div className="text-center z-10 max-w-3xl mx-auto space-y-6">
+      <motion.div 
+        style={{ scale, opacity, y }}
+        className="text-center z-10 max-w-3xl mx-auto space-y-6"
+      >
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,8 +51,9 @@ export function Hero() {
           The AI That Cares.
         </motion.h2>
         
-      </div>
+      </motion.div>
 
     </section>
   );
 }
+
