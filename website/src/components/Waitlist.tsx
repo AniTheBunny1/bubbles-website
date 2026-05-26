@@ -37,13 +37,40 @@ export function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="py-32 px-4 relative z-10">
+    <section id="waitlist" className="py-32 px-4 relative z-10 overflow-hidden">
+      {/* Animated Rising Bubbles */}
+      <div className="absolute inset-0 pointer-events-none flex justify-around items-end overflow-hidden opacity-50">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ y: 200, opacity: 0, scale: 0.5 }}
+            whileInView={{
+              y: -800,
+              opacity: [0, 1, 0],
+              scale: [0.5, 1.5, 1],
+              x: Math.sin(i) * 50
+            }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              ease: "easeOut",
+              delay: i * 0.2
+            }}
+            className="w-16 h-16 md:w-24 md:h-24 rounded-full"
+            style={{
+              background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(${91 + i * 20}, ${134 + i * 10}, 229, 0.2))`,
+              boxShadow: 'inset -5px -5px 15px rgba(0,0,0,0.05), inset 5px 5px 15px rgba(255,255,255,0.8)'
+            }}
+          />
+        ))}
+      </div>
+
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="max-w-2xl mx-auto glass-card rounded-[3rem] p-10 md:p-16 text-center"
+        className="max-w-2xl mx-auto glass-card rounded-[3rem] p-10 md:p-16 text-center relative z-10"
       >
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
           Join the Swarm.
