@@ -63,30 +63,35 @@ export function Waitlist() {
   return (
     <section id="waitlist" className="py-32 px-4 relative z-10 overflow-hidden">
       {/* Animated Rising Bubbles (Overscroll Triggered) */}
-      <div className="absolute inset-0 pointer-events-none flex justify-around items-end overflow-hidden">
-        {showBubbles && [...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: 150, opacity: 0, scale: 0.5 }}
-            animate={{
-              y: -500,
-              opacity: [0, 1, 0],
-              scale: [0.5, 1.2, 1],
-              x: Math.sin(i * 10) * 100
-            }}
-            transition={{
-              duration: 2 + Math.random() * 1,
-              ease: "easeOut",
-              delay: i * 0.1
-            }}
-            className="w-20 h-20 md:w-32 md:h-32 rounded-full absolute bottom-0"
-            style={{
-              left: `${20 + i * 30}%`,
-              background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(${91 + i * 30}, ${150}, 255, 0.4))`,
-              boxShadow: 'inset -5px -5px 15px rgba(0,0,0,0.05), inset 5px 5px 15px rgba(255,255,255,0.8)'
-            }}
-          />
-        ))}
+      <div className="absolute inset-0 pointer-events-none flex justify-center items-end overflow-hidden">
+        {showBubbles && [...Array(12)].map((_, i) => {
+          const size = 30 + Math.random() * 80;
+          return (
+            <motion.div
+              key={i}
+              initial={{ y: 150, opacity: 0, scale: 0.5 }}
+              animate={{
+                y: -(600 + Math.random() * 400),
+                opacity: [0, 1, 0],
+                scale: [0.5, 1.2, 1],
+                x: Math.sin(i * 45) * 150
+              }}
+              transition={{
+                duration: 2 + Math.random() * 2,
+                ease: "easeOut",
+                delay: Math.random() * 0.4
+              }}
+              className="rounded-full absolute bottom-0 border border-white/40 backdrop-blur-[2px]"
+              style={{
+                width: size,
+                height: size,
+                left: `${10 + Math.random() * 80}%`,
+                background: 'rgba(255, 255, 255, 0.1)',
+                boxShadow: 'inset -5px -5px 15px rgba(255,255,255,0.4), inset 5px 5px 15px rgba(255,255,255,0.8), 0 5px 15px rgba(0,0,0,0.05)'
+              }}
+            />
+          );
+        })}
       </div>
 
       <motion.div 
