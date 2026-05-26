@@ -21,7 +21,7 @@ export function FloatingBubbles() {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-      <div className="absolute inset-0 bg-[#f8f8f8]" />
+      {/* Removed the opaque hardcoded background here to let CSS background show */}
       {BUBBLES.map((bubble, i) => (
         <motion.div
           key={i}
@@ -53,7 +53,7 @@ export function FloatingBubbles() {
           }}
         />
       ))}
-      <div className="absolute inset-0 bg-white/40 backdrop-blur-[80px]" />
+      <div className="absolute inset-0 bg-white/20 backdrop-blur-[60px]" />
     </div>
   );
 }

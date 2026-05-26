@@ -18,8 +18,12 @@
   --color-secondary: var(--text-secondary);
 }
 
-body {
+html, body {
   background-color: var(--background);
+  min-height: 100vh;
+}
+
+body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -30,6 +34,7 @@ body {
     radial-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px);
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
+  background-attachment: fixed;
 }
 
 /* Glassmorphism utilities */
