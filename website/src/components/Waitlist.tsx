@@ -1,10 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Waitlist() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [showBubbles, setShowBubbles] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      // Check if user has scrolled past the bottom (overscroll / rubber band effect on Mac/iOS)
+      const isOverscrollingBottom = 
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+      if (isOverscrollingBottom && !showBubbles) {
+        setShowBubbles(true);
+        // Hide them after animation completes so they can trigger again later
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => setShowBubbles(false), 3000);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [showBubbles]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,27 +62,27 @@ export function Waitlist() {
 
   return (
     <section id="waitlist" className="py-32 px-4 relative z-10 overflow-hidden">
-      {/* Animated Rising Bubbles */}
-      <div className="absolute inset-0 pointer-events-none flex justify-around items-end overflow-hidden opacity-50">
-        {[...Array(6)].map((_, i) => (
+      {/* Animated Rising Bubbles (Overscroll Triggered) */}
+      <div className="absolute inset-0 pointer-events-none flex justify-around items-end overflow-hidden">
+        {showBubbles && [...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            initial={{ y: 200, opacity: 0, scale: 0.5 }}
-            whileInView={{
-              y: -800,
+            initial={{ y: 150, opacity: 0, scale: 0.5 }}
+            animate={{
+              y: -500,
               opacity: [0, 1, 0],
-              scale: [0.5, 1.5, 1],
-              x: Math.sin(i) * 50
+              scale: [0.5, 1.2, 1],
+              x: Math.sin(i * 10) * 100
             }}
-            viewport={{ once: false, amount: 0.1 }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: 2 + Math.random() * 1,
               ease: "easeOut",
-              delay: i * 0.2
+              delay: i * 0.1
             }}
-            className="w-16 h-16 md:w-24 md:h-24 rounded-full"
+            className="w-20 h-20 md:w-32 md:h-32 rounded-full absolute bottom-0"
             style={{
-              background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(${91 + i * 20}, ${134 + i * 10}, 229, 0.2))`,
+              left: `${20 + i * 30}%`,
+              background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(${91 + i * 30}, ${150}, 255, 0.4))`,
               boxShadow: 'inset -5px -5px 15px rgba(0,0,0,0.05), inset 5px 5px 15px rgba(255,255,255,0.8)'
             }}
           />
