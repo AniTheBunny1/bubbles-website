@@ -31,8 +31,8 @@ const MessageBubble = ({ role, text }: { role: string; text: string }) => {
   return (
     <div className={`flex ${isAI ? 'justify-start' : 'justify-end'} w-full`}>
       {isAI && (
-        <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-4 overflow-hidden bg-white/10 backdrop-blur-sm">
-          <img src="/logo.png" alt="Bubbles" className="w-6 h-6 object-contain" />
+        <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-4 text-xl">
+          🫧
         </div>
       )}
       <div className={`px-6 py-4 rounded-2xl max-w-[85%] backdrop-blur-sm border ${
