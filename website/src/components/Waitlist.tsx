@@ -81,7 +81,7 @@ export function Waitlist() {
                 ease: "easeOut",
                 delay: Math.random() * 0.4
               }}
-              className="rounded-full absolute bottom-0 border border-white/40 backdrop-blur-[2px]"
+              className="rounded-full absolute bottom-0 border border-white/40"
               style={{
                 width: size,
                 height: size,

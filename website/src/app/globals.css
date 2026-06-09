@@ -28,9 +28,10 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Ripple/water texture pattern */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ripple'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='2' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.15 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ripple)'/%3E%3C/svg%3E");
-  background-size: cover;
+  /* Lightweight Ripple/water texture pattern to prevent lag */
+  background-image: 
+    repeating-radial-gradient(circle at 0 0, transparent 0, var(--background) 40px),
+    repeating-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
   background-attachment: fixed;
 }
 
