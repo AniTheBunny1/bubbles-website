@@ -25,7 +25,7 @@ export function FloatingBubbles() {
       {BUBBLES.map((bubble, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute rounded-full"
           style={{
             width: bubble.size,
             height: bubble.size,
@@ -53,7 +53,6 @@ export function FloatingBubbles() {
           }}
         />
       ))}
-      <div className="absolute inset-0 backdrop-blur-[60px]" />
     </div>
   );
 }

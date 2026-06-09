@@ -22,6 +22,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} h-full antialiased selection:bg-blue-100 selection:text-blue-900 scroll-smooth`}
     >
+      <head>
+        <link rel="icon" href="/icon.png?v=2" type="image/png" />
+      </head>
       <body className="min-h-full flex flex-col relative overflow-x-hidden">{children}</body>
     </html>
   );
