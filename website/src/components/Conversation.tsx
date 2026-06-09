@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 const CHAT_HISTORY = [
   { role: "user", text: "show off all of bubbles features" },
