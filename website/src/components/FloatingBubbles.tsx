@@ -52,6 +52,7 @@ export function FloatingBubbles() {
             delay: bubble.delay,
           }}
         />
+      ))}
       <div className="absolute inset-0 backdrop-blur-[60px]" />
     </div>
   );
