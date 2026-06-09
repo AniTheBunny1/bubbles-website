@@ -28,11 +28,6 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Lightweight Ripple/water texture pattern to prevent lag */
-  background-image: 
-    repeating-radial-gradient(circle at 0 0, transparent 0, var(--background) 40px),
-    repeating-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
-  background-attachment: fixed;
 }
 
 /* Glassmorphism utilities */
