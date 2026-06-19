@@ -1,6 +1,8 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Conversation } from "@/components/Conversation";
+import { BuiltToAct } from "@/components/BuiltToAct";
+import { UseCases } from "@/components/UseCases";
 import { Waitlist } from "@/components/Waitlist";
 
 export default function Home() {
@@ -9,6 +11,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Conversation />
+      <BuiltToAct />
+      <UseCases />
       <Waitlist />
     </main>
   );

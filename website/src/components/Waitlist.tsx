@@ -102,10 +102,10 @@ export function Waitlist() {
         className="max-w-2xl mx-auto glass-card rounded-[3rem] p-10 md:p-16 text-center relative z-10"
       >
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          Join the Swarm.
+          Get Early Access
         </h2>
-        <p className="text-gray-500 mb-10">
-          Spots for the private beta are extremely limited.
+        <p className="text-gray-500 mb-10 text-lg">
+          Join the next generation of personalized AI operators.
         </p>
 
         {status === "success" ? (
@@ -123,14 +123,14 @@ export function Waitlist() {
                 name="email"
                 type="email" 
                 placeholder="Email address" 
-                className="w-full px-6 py-4 rounded-2xl bg-white/50 border border-white/60 focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-gray-800 placeholder:text-gray-400 backdrop-blur-sm"
+                className="w-full px-6 py-4 rounded-2xl glass focus:outline-none focus:ring-2 focus:ring-blue-400/30 transition-all text-gray-800 placeholder:text-gray-500"
                 required
               />
               <input 
                 name="phone"
                 type="tel" 
                 placeholder="Phone number" 
-                className="w-full px-6 py-4 rounded-2xl bg-white/50 border border-white/60 focus:outline-none focus:ring-2 focus:ring-black/5 transition-all text-gray-800 placeholder:text-gray-400 backdrop-blur-sm"
+                className="w-full px-6 py-4 rounded-2xl glass focus:outline-none focus:ring-2 focus:ring-blue-400/30 transition-all text-gray-800 placeholder:text-gray-500"
                 required
               />
             </div>
@@ -138,7 +138,7 @@ export function Waitlist() {
             <button 
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-black text-white font-medium py-4 rounded-2xl hover:bg-gray-800 transition-colors mt-6 shadow-lg shadow-black/10 disabled:opacity-70 flex items-center justify-center gap-2"
+              className="w-full glass bg-white/40 hover:bg-white/60 text-gray-900 font-medium py-4 rounded-2xl transition-all mt-6 shadow-lg shadow-black/5 disabled:opacity-70 flex items-center justify-center gap-2"
             >
               {status === "loading" ? "Joining..." : "Request Early Access"}
             </button>

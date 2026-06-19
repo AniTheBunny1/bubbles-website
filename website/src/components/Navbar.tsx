@@ -20,9 +20,9 @@ export function Navbar() {
       {/* Right: CTA Button */}
       <button 
         onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
-        className="bg-black text-white px-6 py-3 rounded-full text-sm md:text-base font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-black/10 whitespace-nowrap"
+        className="glass px-6 py-3 rounded-full text-sm md:text-base font-medium text-gray-900 hover:bg-white/40 transition-all duration-300 shadow-lg shadow-black/5 whitespace-nowrap"
       >
-        Join Public Beta
+        Get Early Access
       </button>
     </motion.nav>
   );
