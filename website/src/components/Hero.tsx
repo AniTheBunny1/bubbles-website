@@ -28,22 +28,19 @@ export function Hero() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative w-48 h-48 mb-12 flex items-center justify-center group"
       >
-        <motion.div 
+        <motion.img 
+          src="/logo.png" 
+          alt="Bubbles Logo" 
           animate={{ 
             y: [-10, 10, -10],
-            rotate: [0, 5, -5, 0]
+            scale: [1, 1.02, 1]
           }}
           transition={{ 
             duration: 6, 
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="absolute inset-0 rounded-full glass before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-tr before:from-blue-200/40 before:to-transparent after:absolute after:inset-2 after:rounded-full after:shadow-[inset_0_20px_20px_rgba(255,255,255,0.8)] shadow-[0_20px_40px_rgba(0,0,0,0.1)] group-hover:scale-105 transition-transform duration-500"
-        />
-        <img 
-          src="/logo.png" 
-          alt="Bubbles Logo" 
-          className="w-24 h-24 object-contain relative z-10 drop-shadow-xl"
+          className="w-40 h-40 md:w-48 md:h-48 object-contain relative z-10 drop-shadow-2xl"
         />
       </motion.div>
 
