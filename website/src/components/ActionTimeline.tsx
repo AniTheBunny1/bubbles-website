@@ -16,8 +16,8 @@ export function ActionTimeline() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
-  /* background descends into midnight as you scroll */
-  const bgOpacity        = useTransform(scrollYProgress, [0.05, 0.52], [0, 1]);
+  /* background descends into midnight — start non-zero so there's no seam at the top */
+  const bgOpacity        = useTransform(scrollYProgress, [0, 0.50], [0.18, 1]);
 
   /* the thread fills downward */
   const lineScaleY       = useTransform(scrollYProgress, [0.08, 0.72], [0, 1]);
