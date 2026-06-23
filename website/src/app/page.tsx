@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Conversation } from "@/components/Conversation";
-import { PersonalitySelector } from "@/components/PersonalitySelector";
+import { Integrations } from "@/components/Integrations";
 import { CapabilityNetwork } from "@/components/CapabilityNetwork";
 import { BuiltToAct } from "@/components/BuiltToAct";
 import { UseCases } from "@/components/UseCases";
@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Conversation />
-      <PersonalitySelector />
+      <Integrations />
       <CapabilityNetwork />
       <BuiltToAct />
       <UseCases />

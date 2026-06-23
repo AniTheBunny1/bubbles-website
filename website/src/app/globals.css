@@ -23,8 +23,8 @@ html {
   position: relative;
 }
 
-/* Full-page background via fixed pseudo-element.
-   background-attachment:fixed is broken on iOS Safari — this approach works everywhere. */
+/* position:fixed on the pseudo-element keeps the background identical
+   at every scroll depth and works on iOS Safari (which breaks background-attachment:fixed) */
 html::before {
   content: '';
   position: fixed;
@@ -33,15 +33,6 @@ html::before {
   background:
     linear-gradient(rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.26)),
     url('/bg-clouds.png') center center / cover no-repeat;
-}
-
-/* Desktop: let background scroll with the page */
-@media (min-width: 768px) {
-  html::before {
-    position: absolute;
-    min-height: 100%;
-    width: 100%;
-  }
 }
 
 body {
