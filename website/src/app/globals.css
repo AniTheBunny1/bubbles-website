@@ -16,10 +16,20 @@
 /* ── Base ────────────────────────────────────────── */
 
 html {
-  background-color: #e8e2f0;
+  background-color: #ede8f5;
   min-height: 100%;
   position: relative;
   scroll-behavior: smooth;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)),
+    url("/bg-clouds.png") center center / cover no-repeat;
 }
 
 body {
