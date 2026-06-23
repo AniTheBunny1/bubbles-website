@@ -152,14 +152,15 @@ export function Conversation() {
   const visibleMessages = MESSAGES.slice(0, visibleCount);
 
   return (
-    <section ref={sectionRef} className="relative z-10 overflow-hidden py-32">
+    <section ref={sectionRef} className="relative z-10 overflow-hidden pt-32 pb-0">
       <div className="mx-auto max-w-2xl px-0">
+        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "129.6%" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative mx-auto w-full"
+          className="absolute inset-x-0 top-0 w-full"
           style={{
             y: phoneY,
             opacity: phoneOpacity,
@@ -219,7 +220,7 @@ export function Conversation() {
             </div>
           </div>
         </motion.div>
-
+        </div>
       </div>
     </section>
   );
