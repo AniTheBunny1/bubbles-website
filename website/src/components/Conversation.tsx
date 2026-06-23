@@ -68,7 +68,7 @@ const MessageBubble = ({ role, text, image }: Message) => {
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
       <div
-        className={`rounded-2xl max-w-[88%] overflow-hidden text-[18px] leading-relaxed ${
+        className={`rounded-2xl max-w-[80%] overflow-hidden text-[18px] leading-snug ${
           isAI
             ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
             : "bg-[#005c4b] rounded-tr-sm text-white"

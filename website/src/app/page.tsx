@@ -3,9 +3,8 @@ import { ParallaxAtmosphere } from "@/components/ParallaxAtmosphere";
 import { Hero } from "@/components/Hero";
 import { Conversation } from "@/components/Conversation";
 import { MemoryLandscape } from "@/components/MemoryLandscape";
-import { ActionTimeline } from "@/components/ActionTimeline";
+import { MorphBubble } from "@/components/MorphBubble";
 import { TaskConstellation } from "@/components/TaskConstellation";
-import { InsideBubble } from "@/components/InsideBubble";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
 
@@ -18,9 +17,8 @@ export default function Home() {
         <Hero />
         <Conversation />
         <MemoryLandscape />
-        <ActionTimeline />
+        <MorphBubble />
         <TaskConstellation />
-        <InsideBubble />
         <Waitlist />
         <Footer />
       </main>
