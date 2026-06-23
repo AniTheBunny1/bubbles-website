@@ -68,7 +68,7 @@ const MessageBubble = ({ role, text, image }: Message) => {
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
       <div
-        className={`rounded-2xl max-w-[88%] overflow-hidden text-[15px] leading-relaxed ${
+        className={`rounded-2xl max-w-[88%] overflow-hidden text-[18px] leading-relaxed ${
           isAI
             ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
             : "bg-[#005c4b] rounded-tr-sm text-white"
@@ -153,8 +153,8 @@ export function Conversation() {
 
   return (
     <section ref={sectionRef} className="relative z-10 overflow-hidden pt-32 pb-0">
-      <div className="mx-auto max-w-2xl px-0">
-        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "129.6%" }}>
+      <div className="mx-auto max-w-lg px-0">
+        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "122%" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
