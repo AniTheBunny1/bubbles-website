@@ -42,7 +42,7 @@ export function Hero() {
           className="text-6xl md:text-8xl font-bold tracking-tighter text-black"
         >
           An AI that <br className="hidden md:block" />
-          <span style={{ color: "#7C3AED", WebkitTextFillColor: "#7C3AED" }}>actually does stuff</span>
+          <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>actually does stuff</span>
         </motion.h1>
 
         <motion.p

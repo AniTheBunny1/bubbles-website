@@ -15,11 +15,6 @@ export function WhyBubbles() {
         }}
       />
 
-      {/* Glow blobs */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(120,80,255,0.12) 0%, transparent 70%)" }} />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(56,189,248,0.10) 0%, transparent 70%)" }} />
 
       <div className="max-w-7xl mx-auto px-8 md:px-16 py-28 relative z-10">
         <div className="flex flex-col md:flex-row items-start gap-16 md:gap-24">
@@ -37,17 +32,9 @@ export function WhyBubbles() {
             </p>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[1.05] mb-8">
               Most AIs<br />suggest.<br />
-              <span style={{
-                background: "linear-gradient(90deg, #a78bfa, #67e8f9)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>
-                We act.
-              </span>
+              <span style={{ color: "#ffffff" }}>We act.</span>
             </h2>
-            {/* Thin accent line */}
-            <div className="w-12 h-px bg-gradient-to-r from-violet-400 to-cyan-400" />
+            <div className="w-12 h-px bg-white/30" />
           </motion.div>
 
           {/* Right: copy */}
