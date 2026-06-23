@@ -45,6 +45,16 @@ export function Hero() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative mb-14 aspect-square w-60 md:w-80"
       >
+        {/* breathing glow halo */}
+        <motion.div
+          animate={{ scale: [1, 1.22, 1], opacity: [0.18, 0.38, 0.18] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-[-28%] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(210,200,255,0.7) 0%, rgba(180,210,255,0.35) 45%, transparent 70%)",
+            filter: "blur(22px)",
+          }}
+        />
         <motion.div
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}

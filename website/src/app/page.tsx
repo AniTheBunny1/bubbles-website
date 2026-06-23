@@ -5,7 +5,6 @@ import { Conversation } from "@/components/Conversation";
 import { MemoryLandscape } from "@/components/MemoryLandscape";
 import { ActionTimeline } from "@/components/ActionTimeline";
 import { TaskConstellation } from "@/components/TaskConstellation";
-import { InsideBubble } from "@/components/InsideBubble";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
 
@@ -20,7 +19,6 @@ export default function Home() {
         <MemoryLandscape />
         <ActionTimeline />
         <TaskConstellation />
-        <InsideBubble />
         <Waitlist />
         <Footer />
       </main>
