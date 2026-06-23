@@ -65,31 +65,35 @@ export function Waitlist() {
       {/* Animated Rising Bubbles - fixed so they float over the whole site */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
         {showBubbles && [
-          { size: 40,  left: 8,  delay: 0,    duration: 4.5 },
-          { size: 70,  left: 18, delay: 0.4,  duration: 5.2 },
-          { size: 30,  left: 28, delay: 0.1,  duration: 4.0 },
-          { size: 90,  left: 38, delay: 0.7,  duration: 5.6 },
-          { size: 50,  left: 48, delay: 0.2,  duration: 4.8 },
-          { size: 110, left: 58, delay: 0.5,  duration: 6.0 },
-          { size: 35,  left: 66, delay: 0.15, duration: 4.2 },
-          { size: 75,  left: 75, delay: 0.6,  duration: 5.4 },
-          { size: 55,  left: 14, delay: 0.9,  duration: 4.6 },
-          { size: 95,  left: 85, delay: 0.25, duration: 5.8 },
-          { size: 42,  left: 52, delay: 0.45, duration: 4.3 },
-          { size: 65,  left: 33, delay: 0.8,  duration: 5.0 },
-          { size: 28,  left: 92, delay: 0.3,  duration: 3.9 },
-          { size: 80,  left: 5,  delay: 1.0,  duration: 5.5 },
+          { size: 22,  left: 4,  delay: 0.0,  duration: 2.8 },
+          { size: 95,  left: 11, delay: 0.5,  duration: 6.2 },
+          { size: 38,  left: 19, delay: 0.1,  duration: 3.5 },
+          { size: 140, left: 27, delay: 0.8,  duration: 7.4 },
+          { size: 55,  left: 34, delay: 0.3,  duration: 4.6 },
+          { size: 18,  left: 42, delay: 0.05, duration: 2.5 },
+          { size: 115, left: 51, delay: 0.65, duration: 6.8 },
+          { size: 44,  left: 58, delay: 0.2,  duration: 3.9 },
+          { size: 78,  left: 65, delay: 0.45, duration: 5.5 },
+          { size: 28,  left: 73, delay: 0.15, duration: 3.1 },
+          { size: 130, left: 81, delay: 0.9,  duration: 7.0 },
+          { size: 50,  left: 88, delay: 0.35, duration: 4.2 },
+          { size: 20,  left: 95, delay: 0.7,  duration: 2.7 },
+          { size: 85,  left: 7,  delay: 1.1,  duration: 5.8 },
+          { size: 35,  left: 46, delay: 1.3,  duration: 3.4 },
+          { size: 105, left: 62, delay: 0.55, duration: 6.4 },
+          { size: 24,  left: 77, delay: 1.0,  duration: 2.9 },
+          { size: 145, left: 38, delay: 0.4,  duration: 7.8 },
         ].map((b, i) => (
           <motion.img
             key={i}
             src="/bubblebub.png"
             alt=""
-            initial={{ y: 0, opacity: 0, scale: 0.4 }}
+            initial={{ y: 0, opacity: 0, scale: 0.3 }}
             animate={{
-              y: -1400,
-              opacity: [0, 0.9, 0.9, 0],
-              scale: [0.4, 1.0, 0.85],
-              x: [0, Math.sin(i * 0.9) * 80, Math.sin(i * 0.9 + 1) * 60]
+              y: -1600,
+              opacity: [0, 0.85, 0.85, 0],
+              scale: [0.3, 1.0, 0.9],
+              x: [0, Math.sin(i * 1.1) * 90, Math.sin(i * 1.1 + 1.5) * 55]
             }}
             transition={{
               duration: b.duration,

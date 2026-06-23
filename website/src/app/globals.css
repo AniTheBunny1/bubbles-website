@@ -20,11 +20,13 @@
 html, body {
   min-height: 100vh;
   background-color: #ede8f5;
-  background-image: url('/bg-clouds.png');
-  background-position: center center;
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28)),
+    url('/bg-clouds.png');
+  background-position: center top, center top;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: scroll, scroll;
 }
 
 body {
