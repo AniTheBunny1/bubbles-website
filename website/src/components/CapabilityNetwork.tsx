@@ -39,7 +39,7 @@ const CAPABILITIES = [
   },
 ];
 
-const R = 37; // radius as % of container
+const R = 37;
 const CX = 50;
 const CY = 50;
 
@@ -74,37 +74,33 @@ export function CapabilityNetwork() {
           </motion.p>
         </div>
 
-        {/* Network diagram */}
         <div
           className="relative mx-auto"
           style={{ maxWidth: 720, width: "100%", aspectRatio: "1 / 1" }}
         >
-          {/* SVG connector lines */}
+          {/* SVG connector lines — pointer-events-none so they never block hover */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
             viewBox="0 0 100 100"
             preserveAspectRatio="xMidYMid meet"
           >
-            {/* Octagon outline */}
             <polygon
               points={CAPABILITIES.map(c => {
                 const { x, y } = toXY(c.angle);
                 return `${x},${y}`;
               }).join(" ")}
               fill="none"
-              stroke="rgba(120, 130, 180, 0.35)"
+              stroke="rgba(120, 130, 180, 0.3)"
               strokeWidth="0.35"
             />
-            {/* Line from center to hovered node */}
             {CAPABILITIES.map(c => {
               if (c.id !== hovered) return null;
               const { x, y } = toXY(c.angle);
               return (
                 <line
                   key={c.id}
-                  x1={CX} y1={CY}
-                  x2={x} y2={y}
-                  stroke="rgba(91, 134, 229, 0.65)"
+                  x1={CX} y1={CY} x2={x} y2={y}
+                  stroke="rgba(91, 134, 229, 0.6)"
                   strokeWidth="0.5"
                   strokeDasharray="1.5 1"
                 />
@@ -112,79 +108,88 @@ export function CapabilityNetwork() {
             })}
           </svg>
 
-          {/* Center node */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
-            className="absolute glass-card rounded-full flex items-center justify-center"
-            style={{
-              left: "50%", top: "50%",
-              width: "11%", height: "11%",
-              transform: "translate(-50%, -50%)",
-            }}
+          {/* Center node — plain div for position, motion.div for animation */}
+          <div
+            className="absolute"
+            style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)", width: "11%", height: "11%", zIndex: 2 }}
           >
-            <Brain className="text-gray-700" style={{ width: "45%", height: "45%" }} />
-          </motion.div>
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+              className="w-full h-full glass-card rounded-full flex items-center justify-center"
+            >
+              <Brain className="text-gray-700" style={{ width: "45%", height: "45%" }} />
+            </motion.div>
+          </div>
 
           {/* Capability nodes */}
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
             const { x, y } = toXY(cap.angle);
             const isHovered = hovered === cap.id;
-            const isBottom = y > 55;
-            const isRight = x > 65;
-            const isLeft = x < 35;
+            const isBottom = y > 58;
+            const isRight = x > 68;
+            const isLeft = x < 32;
 
             return (
-              <motion.div
+              /* Plain div owns the position transform — Framer Motion never touches it */
+              <div
                 key={cap.id}
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.05 + i * 0.07, type: "spring", stiffness: 220 }}
                 className="absolute"
                 style={{
                   left: `${x}%`,
                   top: `${y}%`,
                   transform: "translate(-50%, -50%)",
+                  zIndex: isHovered ? 30 : 1,
                 }}
                 onMouseEnter={() => setHovered(cap.id)}
                 onMouseLeave={() => setHovered(null)}
               >
+                {/* motion.div only controls scale-in on mount */}
                 <motion.div
-                  whileHover={{ scale: 1.18 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className={`rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-200 ${
-                    isHovered ? "glass-card shadow-xl" : "glass"
-                  }`}
-                  style={{ width: "clamp(52px, 9vw, 80px)", height: "clamp(52px, 9vw, 80px)" }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.05 + i * 0.07, type: "spring", stiffness: 220 }}
                 >
-                  <Icon
-                    className={isHovered ? "text-gray-900" : "text-gray-600"}
-                    style={{ width: "36%", height: "36%" }}
-                  />
+                  {/* motion.div only controls hover scale */}
+                  <motion.div
+                    whileHover={{ scale: 1.18 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className={`rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-200 ${
+                      isHovered ? "glass-card shadow-xl" : "glass"
+                    }`}
+                    style={{ width: "clamp(52px, 9vw, 80px)", height: "clamp(52px, 9vw, 80px)" }}
+                  >
+                    <Icon
+                      className={isHovered ? "text-gray-900" : "text-gray-600"}
+                      style={{ width: "36%", height: "36%" }}
+                    />
+                  </motion.div>
                 </motion.div>
 
+                {/* Tooltip — uses marginLeft instead of transform to avoid FM conflict */}
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.88, y: isBottom ? -6 : 6 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.88 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute z-30 glass-card rounded-2xl p-3 pointer-events-none"
+                      className="absolute glass-card rounded-2xl p-3 pointer-events-none"
                       style={{
                         width: 190,
+                        zIndex: 40,
                         ...(isBottom
-                          ? { bottom: "calc(100% + 10px)" }
-                          : { top: "calc(100% + 10px)" }),
+                          ? { bottom: "calc(100% + 12px)" }
+                          : { top: "calc(100% + 12px)" }),
                         ...(isRight
                           ? { right: 0 }
                           : isLeft
                           ? { left: 0 }
-                          : { left: "50%", transform: "translateX(-50%)" }),
+                          : { left: "50%", marginLeft: -95 }),
                       }}
                     >
                       <p className="text-xs font-bold text-gray-900 mb-1">{cap.label}</p>
@@ -192,7 +197,7 @@ export function CapabilityNetwork() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>
