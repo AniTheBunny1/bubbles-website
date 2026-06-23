@@ -179,8 +179,8 @@ export function Conversation() {
               top: "1.67%",
               left: "4.69%",
               right: "4.99%",
-              bottom: "2.32%",
-              borderRadius: "7% / 3.25%",
+              bottom: "39.7%",
+              borderRadius: "7% 7% 0 0 / 3.25% 3.25% 0 0",
               backgroundColor: "#111b21",
             }}
           >

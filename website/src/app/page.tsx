@@ -4,7 +4,6 @@ import { Hero } from "@/components/Hero";
 import { Conversation } from "@/components/Conversation";
 import { MemoryLandscape } from "@/components/MemoryLandscape";
 import { MorphBubble } from "@/components/MorphBubble";
-import { TaskConstellation } from "@/components/TaskConstellation";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
 
@@ -18,7 +17,6 @@ export default function Home() {
         <Conversation />
         <MemoryLandscape />
         <MorphBubble />
-        <TaskConstellation />
         <Waitlist />
         <Footer />
       </main>
