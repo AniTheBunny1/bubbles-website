@@ -5,46 +5,28 @@ import { motion } from "framer-motion";
 const GROUPS = [
   {
     title: "Daily life",
-    emoji: "🌅",
-    gradientFrom: "rgba(251,146,60,0.18)",
-    gradientTo: "rgba(251,191,36,0.12)",
+    gradientFrom: "rgba(251,146,60,0.15)",
+    gradientTo: "rgba(251,191,36,0.08)",
     dotColor: "#fb923c",
-    apps: [
-      { emoji: "🍕", name: "Swiggy" },
-      { emoji: "⚡", name: "Blinkit" },
-      { emoji: "📦", name: "Amazon" },
-      { emoji: "🗺️", name: "Maps" },
-    ],
+    apps: ["Swiggy", "Blinkit", "Amazon", "Google Maps"],
     userMsg: "Order me 2 Thums Up from Blinkit",
     aiMsg: "order placed. two chilled thums ups, arriving in 12 mins. ₹78 cash ready.",
   },
   {
     title: "Work",
-    emoji: "💼",
-    gradientFrom: "rgba(96,165,250,0.18)",
-    gradientTo: "rgba(167,139,250,0.12)",
+    gradientFrom: "rgba(96,165,250,0.15)",
+    gradientTo: "rgba(167,139,250,0.08)",
     dotColor: "#818cf8",
-    apps: [
-      { emoji: "✉️", name: "Gmail" },
-      { emoji: "💬", name: "Slack" },
-      { emoji: "📝", name: "Notion" },
-      { emoji: "📅", name: "Calendar" },
-    ],
+    apps: ["Gmail", "Slack", "Notion", "Google Calendar"],
     userMsg: "Summarize my unread Slack messages",
     aiMsg: "three things: Priya needs the deck, Rahul's poking about the API bug, standup in 20. pick your battles.",
   },
   {
     title: "Manipal students",
-    emoji: "🎓",
-    gradientFrom: "rgba(52,211,153,0.18)",
-    gradientTo: "rgba(56,189,248,0.12)",
+    gradientFrom: "rgba(52,211,153,0.15)",
+    gradientTo: "rgba(56,189,248,0.08)",
     dotColor: "#34d399",
-    apps: [
-      { emoji: "🏫", name: "Lighthouse" },
-      { emoji: "✉️", name: "Gmail" },
-      { emoji: "📝", name: "Notion" },
-      { emoji: "📅", name: "Calendar" },
-    ],
+    apps: ["Lighthouse LMS", "Gmail", "Notion", "Google Calendar"],
     userMsg: "Do I have any submissions due this week?",
     aiMsg: "yep. DSA assignment due Thursday, quiz Friday at 9am. want me to block some panic study time or are you feeling brave?",
   },
@@ -88,45 +70,30 @@ export function Integrations() {
             >
               {/* Gradient header */}
               <div
-                className="relative px-8 pt-8 pb-6"
+                className="relative px-8 pt-8 pb-7"
                 style={{
                   background: `linear-gradient(135deg, ${group.gradientFrom}, ${group.gradientTo})`,
                 }}
               >
-                {/* Accent glow blob */}
                 <div
-                  className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-30 blur-2xl pointer-events-none"
+                  className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-25 blur-2xl pointer-events-none"
                   style={{ background: group.dotColor }}
                 />
-                <div className="flex items-center gap-3 relative z-10">
-                  <span className="text-3xl">{group.emoji}</span>
-                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">{group.title}</h3>
-                </div>
-
-                {/* App pills */}
-                <div className="flex flex-wrap gap-2 mt-5 relative z-10">
-                  {group.apps.map((app) => (
-                    <span
-                      key={app.name}
-                      className="inline-flex items-center gap-1.5 bg-white/60 backdrop-blur-sm border border-white/70 text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-full"
-                    >
-                      <span>{app.emoji}</span>
-                      {app.name}
-                    </span>
-                  ))}
-                </div>
+                <h3 className="text-xl font-bold text-gray-900 tracking-tight relative z-10 mb-3">
+                  {group.title}
+                </h3>
+                <p className="text-xs text-gray-500 relative z-10 leading-relaxed">
+                  {group.apps.join(" · ")}
+                </p>
               </div>
 
               {/* Mini WhatsApp preview */}
               <div className="flex flex-col flex-1 px-5 py-5 bg-[#111b21] gap-3">
-                {/* User bubble */}
                 <div className="flex justify-end">
                   <div className="bg-[#005c4b] text-white text-xs rounded-2xl rounded-tr-sm px-3.5 py-2 max-w-[80%] leading-relaxed">
                     {group.userMsg}
                   </div>
                 </div>
-
-                {/* AI bubble */}
                 <div className="flex items-end gap-2">
                   <div className="w-6 h-6 rounded-full overflow-hidden bg-white/10 shrink-0">
                     <img src="/logo.png" alt="" className="w-full h-full object-contain" />
