@@ -2,19 +2,6 @@
 
 import { motion } from "framer-motion";
 
-const APPS = [
-  { name: "Swiggy",           emoji: "🍕" },
-  { name: "Blinkit",          emoji: "⚡" },
-  { name: "Amazon",           emoji: "📦" },
-  { name: "Gmail",            emoji: "✉️" },
-  { name: "Notion",           emoji: "📝" },
-  { name: "Slack",            emoji: "💬" },
-  { name: "Lighthouse LMS",   emoji: "🎓" },
-  { name: "Google Calendar",  emoji: "📅" },
-  { name: "Google Maps",      emoji: "🗺️" },
-  { name: "Zomato",           emoji: "🍜" },
-];
-
 const GROUPS = [
   {
     title: "Daily life",
@@ -69,33 +56,6 @@ export function Integrations() {
             Swiggy orders, Slack messages, Manipal assignments — handle everything from WhatsApp without switching apps.
           </motion.p>
         </div>
-
-        {/* Scrolling app marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-          className="mb-20 overflow-hidden"
-        >
-          <div className="flex" style={{ width: "max-content" }}>
-            <motion.div
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-              className="flex gap-4"
-            >
-              {[...APPS, ...APPS].map((app, i) => (
-                <div
-                  key={i}
-                  className="glass px-5 py-3 rounded-2xl flex items-center gap-3 shrink-0"
-                >
-                  <span className="text-xl">{app.emoji}</span>
-                  <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">{app.name}</span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </motion.div>
 
         {/* Feature groups */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
