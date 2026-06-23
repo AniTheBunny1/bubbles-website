@@ -112,24 +112,24 @@ export function Conversation() {
     setShowTyping(false);
 
     const timeouts: NodeJS.Timeout[] = [];
-    let t = 600;
+    let t = 1000;
 
     MESSAGES.forEach((msg, i) => {
       if (msg.role === "ai") {
         const tt = t;
         timeouts.push(setTimeout(() => setShowTyping(true), tt));
-        t += 800;
+        t += 1800;
       }
       const mt = t;
       timeouts.push(setTimeout(() => {
         setVisibleCount(i + 1);
         setShowTyping(false);
       }, mt));
-      t += 350;
+      t += 900;
     });
 
     // Loop
-    timeouts.push(setTimeout(() => setCycleKey((k) => k + 1), t + 3000));
+    timeouts.push(setTimeout(() => setCycleKey((k) => k + 1), t + 5000));
 
     return () => timeouts.forEach(clearTimeout);
   }, [cycleKey]);
