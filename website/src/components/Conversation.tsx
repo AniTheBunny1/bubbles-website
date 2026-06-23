@@ -182,19 +182,19 @@ export function Conversation() {
         >
           {/* Phone frame overlay — dictates aspect ratio */}
           <img
-            src="/frame.png"
+            src="/Subject.png"
             alt=""
-            className="relative w-full h-auto pointer-events-none z-20"
+            className="relative w-full h-auto block pointer-events-none z-20 drop-shadow-2xl"
           />
 
-          {/* Screen content — insets for standard iPhone frame PNG */}
+          {/* Screen content — exact insets for Subject.png */}
           <div
             className="absolute flex flex-col overflow-hidden z-10"
             style={{
-              top: "2.5%",
-              left: "6.5%",
-              right: "6.5%",
-              bottom: "2.5%",
+              top: "1.67%",
+              left: "4.69%",
+              right: "4.99%",
+              bottom: "2.32%",
               borderRadius: "10%",
               backgroundColor: "#111b21",
             }}
