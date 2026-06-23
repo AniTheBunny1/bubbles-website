@@ -178,25 +178,31 @@ export function Conversation() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative mx-auto"
-          style={{ width: "min(460px, 88vw)", aspectRatio: "390 / 844" }}
+          className="relative mx-auto w-[min(460px,88vw)]"
         >
-          {/* Screen content — insets for standard iPhone 14 Pro frame PNG */}
+          {/* Phone frame overlay — dictates aspect ratio */}
+          <img
+            src="/frame.png"
+            alt=""
+            className="relative w-full h-auto pointer-events-none z-20"
+          />
+
+          {/* Screen content — insets for standard iPhone frame PNG */}
           <div
-            className="absolute flex flex-col overflow-hidden"
+            className="absolute flex flex-col overflow-hidden z-10"
             style={{
-              top: "12%",
-              left: "6%",
-              right: "6%",
-              bottom: "8%",
-              borderRadius: 44,
+              top: "2.5%",
+              left: "6.5%",
+              right: "6.5%",
+              bottom: "2.5%",
+              borderRadius: "10%",
               backgroundColor: "#111b21",
             }}
           >
             {/* WhatsApp header */}
             <div
               className="px-3 py-2 flex items-center gap-2 shrink-0"
-              style={{ backgroundColor: "#1f2c34" }}
+              style={{ backgroundColor: "#1f2c34", paddingTop: "max(12px, 8%)" }}
             >
               <div className="w-7 h-7 rounded-full overflow-hidden shrink-0 bg-white/10 flex items-center justify-center">
                 <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
@@ -230,14 +236,6 @@ export function Conversation() {
               {showTyping && <TypingIndicator />}
             </div>
           </div>
-
-          {/* Phone frame overlay — sits on top of content */}
-          <img
-            src="/frame.png"
-            alt=""
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
-            style={{ zIndex: 20 }}
-          />
         </motion.div>
 
       </div>
