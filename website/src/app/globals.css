@@ -1,38 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --foreground: #000000;
+  --foreground: #0a0a0a;
   --text-secondary: #666666;
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  
-  --color-glass: var(--glass-bg);
-  --color-glass-border: var(--glass-border);
   --color-secondary: var(--text-secondary);
 }
+
+/* ── Base ────────────────────────────────────────── */
 
 html {
   background-color: #ede8f5;
   min-height: 100%;
   position: relative;
-}
-
-/* position:fixed on the pseudo-element keeps the background identical
-   at every scroll depth and works on iOS Safari (which breaks background-attachment:fixed) */
-html::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.26)),
-    url('/bg-clouds.png') center center / cover no-repeat;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -42,99 +29,74 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Premium Liquid Glass Utilities */
-@utility glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+::selection {
+  background-color: rgba(180, 160, 255, 0.2);
+  color: inherit;
 }
 
-@utility glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.25));
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.8);
-  border-left: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08), inset 0 2px 20px rgba(255, 255, 255, 0.4);
+/* ── Dream Keyframes ─────────────────────────────── */
+
+/* Slow horizontal drift for cloud layers */
+@keyframes drift {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(30px); }
+  100% { transform: translateX(0); }
+}
+@keyframes drift-reverse {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-25px); }
+  100% { transform: translateX(0); }
 }
 
-@utility iridescent-text {
-  background: linear-gradient(90deg, #5b86e5, #36d1dc, #ff9a9e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Gentle breathing scale pulse */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.025); }
 }
 
-/* Premium Glass Button */
-@utility glass-button {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.15));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-  transition: all 0.3s ease;
+/* Slow hue rotation for iridescent refractions */
+@keyframes iridescent-shift {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
-.glass-button:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.25));
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+/* Particle twinkle */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.6; }
 }
 
-/* Floating Animation */
+/* Very gentle vertical float */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
 }
 
-@utility float-animation {
-  animation: float 3s ease-in-out infinite;
+@keyframes drift-slow {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(14px, -10px, 0) rotate(1.5deg); }
 }
 
-/* Glow Effect */
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(91, 134, 229, 0.3);
+/* Content emerge from below */
+@keyframes emerge {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  50% {
-    box-shadow: 0 0 40px rgba(91, 134, 229, 0.5);
-  }
-}
-
-@utility glow {
-  animation: glow 3s ease-in-out infinite;
-}
-
-/* Shimmer Effect for Glass */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@utility shimmer {
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 3s infinite;
+/* Star field subtle pulse */
+@keyframes star-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.3); }
 }
 
-/* Hide scrollbar (used inside phone frame) */
+/* ── Utilities ───────────────────────────────────── */
+
 @utility scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -143,13 +105,46 @@ body {
   display: none;
 }
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
+@utility float-animation {
+  animation: float 6s ease-in-out infinite;
 }
 
-/* Selection Styles */
-::selection {
-  background-color: rgba(91, 134, 229, 0.2);
-  color: inherit;
+@utility breathe-animation {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@utility drift-animation {
+  animation: drift 40s ease-in-out infinite;
+}
+
+@utility twinkle-animation {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@utility iridescent-animation {
+  animation: iridescent-shift 26s linear infinite;
+}
+
+@utility drift-slow {
+  animation: drift-slow 18s ease-in-out infinite;
+}
+
+@utility text-shadow-soft {
+  text-shadow: 0 12px 45px rgba(255, 255, 255, 0.5), 0 1px 12px rgba(20, 20, 40, 0.08);
+}
+
+@utility bubble-orb {
+  background:
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.86), transparent 28%),
+    radial-gradient(circle at 68% 76%, rgba(178, 213, 255, 0.38), transparent 42%),
+    conic-gradient(from 110deg, rgba(255, 255, 255, 0.42), rgba(255, 190, 232, 0.24), rgba(180, 235, 255, 0.24), rgba(255, 255, 255, 0.42));
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.42), 0 0 34px rgba(187, 204, 255, 0.24);
+  animation: float 12s ease-in-out infinite;
+}
+
+/* Film grain overlay for dark sections */
+@utility film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }

@@ -1,45 +1,91 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import type { PointerEvent } from "react";
 
 export function Hero() {
   const { scrollY } = useScroll();
-
   const scale = useTransform(scrollY, [0, 500], [1, 0.8]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const y = useTransform(scrollY, [0, 500], [0, 50]);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const springX = useSpring(pointerX, { stiffness: 50, damping: 30 });
+  const springY = useSpring(pointerY, { stiffness: 50, damping: 30 });
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-3, 3]);
+  const rotateX = useTransform(springY, [-0.5, 0.5], [3, -3]);
+  const highlightX = useTransform(springX, [-0.5, 0.5], ["34%", "66%"]);
+  const highlightY = useTransform(springY, [-0.5, 0.5], ["28%", "58%"]);
 
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set((event.clientX - bounds.left) / bounds.width - 0.5);
+    pointerY.set((event.clientY - bounds.top) / bounds.height - 0.5);
+  };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-20">
-
-      {/* Logo - no glass bubble, no shadow */}
+    <section
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => {
+        pointerX.set(0);
+        pointerY.set(0);
+      }}
+      className="relative z-10 flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-20"
+    >
       <motion.div
-        style={{ scale, opacity, y }}
+        style={{ scale, opacity, y, rotateX, rotateY }}
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="mb-12"
+        className="relative mb-14 aspect-square w-60 md:w-80"
       >
-        <motion.img
-          src="/logo.png"
-          alt="Bubbles Logo"
-          animate={{ y: [-10, 10, -10] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="w-44 h-44 md:w-56 md:h-56 object-contain"
+        <motion.div
+          animate={{ scale: [1, 1.04, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-[-18%] rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,.55),rgba(174,204,255,.35),rgba(255,188,230,.35),rgba(184,255,238,.28),rgba(255,255,255,.55))] blur-3xl opacity-70"
         />
+        <motion.div
+          animate={{ y: [-8, 8, -8], scale: [1, 1.03, 1] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 overflow-hidden rounded-full"
+        >
+          <img
+            src="/logo.png"
+            alt="Bubbles"
+            className="h-full w-full object-contain drop-shadow-[0_0_60px_rgba(180,200,255,.35)]"
+          />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-3 rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(255,255,255,.55),rgba(158,205,255,.35),rgba(255,176,225,.28),transparent)] opacity-20 mix-blend-screen"
+          />
+          <motion.div
+            style={{ left: highlightX, top: highlightY }}
+            className="absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,.2)_38%,transparent_70%)] blur-sm"
+          />
+          <motion.div
+            animate={{ x: ["-12%", "14%", "-12%"], y: ["10%", "-8%", "10%"] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-10 rounded-full bg-[radial-gradient(circle_at_40%_45%,rgba(255,255,255,.32),transparent_54%)]"
+          />
+        </motion.div>
       </motion.div>
 
-      {/* Text Content */}
       <motion.div
         style={{ scale, opacity, y }}
-        className="text-center z-10 max-w-3xl mx-auto space-y-6"
+        className="z-10 mx-auto max-w-3xl space-y-6 text-center"
       >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-6xl md:text-8xl font-bold tracking-tighter text-black"
+          className="text-6xl font-semibold tracking-tight text-black md:text-8xl"
         >
           An AI that <br className="hidden md:block" />
           <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>actually does stuff</span>
@@ -49,31 +95,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto leading-relaxed"
+          className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-xl"
         >
-          Lives in WhatsApp. Remembers everything. Doesn't just suggest, it executes.
+          Lives in WhatsApp. Remembers everything. Does not just suggest, it executes.
         </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35 }}
-          className="text-base md:text-lg text-gray-500 max-w-xl mx-auto"
-        >
-          Stop managing the chaos and start living.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="pt-4"
-        >
-          <p className="text-sm text-gray-500 font-medium">Bootstrapped 4L+ for development. Public beta out soon.</p>
-        </motion.div>
       </motion.div>
-
     </section>
   );
 }
-

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 interface Message {
@@ -114,11 +114,14 @@ export function Conversation() {
   const [visibleCount, setVisibleCount] = useState(0);
   const [showTyping, setShowTyping] = useState(false);
   const [cycleKey, setCycleKey] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "center center"] });
+  const phoneY = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const phoneOpacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+  const phoneScale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
 
   useEffect(() => {
-    setVisibleCount(0);
-    setShowTyping(false);
     const timeouts: NodeJS.Timeout[] = [];
     let t = 1000;
 
@@ -149,30 +152,8 @@ export function Conversation() {
   const visibleMessages = MESSAGES.slice(0, visibleCount);
 
   return (
-    <section className="py-32 px-4 relative z-10 overflow-hidden">
-      <div className="max-w-4xl mx-auto">
-
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-black"
-          >
-            See It In Action
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
-          >
-            Bubbles doesn't just talk. It executes tasks across the web.
-          </motion.p>
-        </div>
-
-        {/* iPhone frame container, clipped to top half with a fade out */}
+    <section ref={sectionRef} className="relative z-10 overflow-hidden px-4 py-32">
+      <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -180,19 +161,21 @@ export function Conversation() {
           transition={{ delay: 0.15 }}
           className="relative mx-auto w-[min(460px,88vw)] overflow-hidden"
           style={{ 
+            y: phoneY,
+            opacity: phoneOpacity,
+            scale: phoneScale,
             maxHeight: "600px", 
             WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)" 
+            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
           }}
         >
-          {/* Phone frame overlay — dictates aspect ratio */}
+          <div className="absolute left-1/2 top-1/2 z-0 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20 blur-[90px]" />
           <img
             src="/Subject.png"
             alt=""
             className="relative w-full h-auto block pointer-events-none z-20 drop-shadow-2xl"
           />
 
-          {/* Screen content — exact insets for Subject.png */}
           <div
             className="absolute flex flex-col overflow-hidden z-10"
             style={{
@@ -200,11 +183,10 @@ export function Conversation() {
               left: "4.69%",
               right: "4.99%",
               bottom: "2.32%",
-              borderRadius: "12.5%", /* Increased to perfectly hug the corners */
+              borderRadius: "12.5%",
               backgroundColor: "#111b21",
             }}
           >
-            {/* WhatsApp header */}
             <div
               className="px-3 py-2 flex items-center gap-2 shrink-0"
               style={{ backgroundColor: "#1f2c34", paddingTop: "max(12px, 8%)" }}
@@ -225,7 +207,6 @@ export function Conversation() {
               </div>
             </div>
 
-            {/* Messages */}
             <div
               ref={chatRef}
               className="flex-1 overflow-y-auto scrollbar-hide p-3 space-y-2"

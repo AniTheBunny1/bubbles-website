@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Bubbles | The AI That Cares",
-  description: "The first agentic AI swarm for the Indian mass market.",
+  title: "Bubbles",
+  description: "Your personal AI operator.",
 };
 
 export default function RootLayout({
@@ -20,7 +14,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased selection:bg-blue-100 selection:text-blue-900 scroll-smooth`}
+      className="h-full scroll-smooth antialiased selection:bg-blue-100 selection:text-blue-900"
     >
       <head>
         <link rel="icon" href="/icon.png?v=2" type="image/png" />
