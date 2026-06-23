@@ -68,7 +68,7 @@ const MessageBubble = ({ role, text, image }: Message) => {
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
       <div
-        className={`rounded-2xl max-w-[85%] overflow-hidden text-[11px] leading-relaxed ${
+        className={`rounded-2xl max-w-[85%] overflow-hidden text-sm leading-relaxed ${
           isAI
             ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
             : "bg-[#005c4b] rounded-tr-sm text-white"
@@ -152,21 +152,18 @@ export function Conversation() {
   const visibleMessages = MESSAGES.slice(0, visibleCount);
 
   return (
-    <section ref={sectionRef} className="relative z-10 overflow-hidden px-4 py-32">
-      <div className="mx-auto max-w-4xl">
+    <section ref={sectionRef} className="relative z-10 overflow-hidden py-32">
+      <div className="mx-auto max-w-2xl px-0">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative mx-auto w-[min(600px,96vw)]"
+          className="relative mx-auto w-full"
           style={{
             y: phoneY,
             opacity: phoneOpacity,
             scale: phoneScale,
-            maxHeight: "62vw",
-            WebkitMaskImage: "linear-gradient(to bottom, black 52%, transparent 92%)",
-            maskImage: "linear-gradient(to bottom, black 52%, transparent 92%)",
           }}
         >
           <img
