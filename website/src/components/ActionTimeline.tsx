@@ -4,11 +4,11 @@ import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const events = [
-  ["9:01 AM", "Monitoring subscriptions"],
-  ["9:12 AM", "Payment failed on Google Workspace"],
-  ["9:13 AM", "Alert sent to your UPI"],
-  ["9:15 AM", "Payment retried. Issue resolved."],
-  ["9:47 AM", "Newsletter cleanup. 7 dead subscriptions removed."],
+  ["9:01 AM", "Bubbles checked your subscriptions."],
+  ["9:12 AM", "Google Workspace payment failed."],
+  ["9:13 AM", "Bubbles sent the UPI alert."],
+  ["9:15 AM", "Payment retried. Work email stayed alive."],
+  ["9:47 AM", "Bubbles removed 7 dead newsletters."],
   ["10:00 AM", "Rs 2,145/month saved."],
 ];
 
@@ -22,7 +22,6 @@ export function ActionTimeline() {
     <section ref={ref} className="relative z-10 min-h-[145vh] px-5 py-32">
       <div className="mx-auto max-w-3xl">
         <div className="relative mx-auto w-full py-16">
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-black/10" />
           <div className="space-y-20">
             {events.map(([time, action], index) => (
               <TimelineEntry key={time} time={time} action={action} index={index} progress={scrollYProgress} />
@@ -58,7 +57,6 @@ function TimelineEntry({
 
   return (
     <motion.div style={{ opacity, y }} className="relative mx-auto w-full max-w-sm text-center">
-      <div className="absolute left-1/2 top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-white shadow-[0_0_24px_rgba(255,255,255,.9)] ring-1 ring-black/10" />
       <p className="mb-3 text-sm text-black/40">{time}</p>
       <p className="text-xl text-black/70 md:text-2xl">{action}</p>
     </motion.div>

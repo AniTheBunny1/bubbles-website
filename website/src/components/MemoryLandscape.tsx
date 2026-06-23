@@ -4,13 +4,13 @@ import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const memories = [
-  { text: "You mentioned your flight.", meta: "Three weeks ago.", left: "9%", top: "18%", size: "text-xl md:text-3xl", opacity: 0.75, rotate: "-3deg" },
-  { text: "You prefer aisle seats.", left: "62%", top: "22%", size: "text-lg md:text-2xl", opacity: 0.62, rotate: "2deg" },
-  { text: "Meeting with Gaurav in ten minutes.", left: "24%", top: "44%", size: "text-2xl md:text-4xl", opacity: 0.88, rotate: "1deg" },
-  { text: "Want me to pull up your notes?", left: "54%", top: "52%", size: "text-base md:text-xl", opacity: 0.58, rotate: "-2deg" },
-  { text: "She prefers oat milk.", left: "12%", top: "72%", size: "text-sm md:text-lg", opacity: 0.42, rotate: "4deg" },
-  { text: "Your subscription renews Thursday.", left: "68%", top: "76%", size: "text-lg md:text-2xl", opacity: 0.66, rotate: "-1deg" },
-  { text: "You have not called mom in two weeks.", left: "38%", top: "84%", size: "text-base md:text-xl", opacity: 0.54, rotate: "3deg" },
+  { text: "Bubbles remembered your flight.", meta: "Three weeks ago.", left: "9%", top: "18%", size: "text-xl md:text-3xl", opacity: 0.75, rotate: "-3deg" },
+  { text: "Bubbles picked the aisle seat.", left: "62%", top: "22%", size: "text-lg md:text-2xl", opacity: 0.62, rotate: "2deg" },
+  { text: "Gaurav in ten minutes.", meta: "Bubbles pulled your notes.", left: "24%", top: "44%", size: "text-2xl md:text-4xl", opacity: 0.88, rotate: "1deg" },
+  { text: "Bubbles kept the pitch ready.", left: "54%", top: "52%", size: "text-base md:text-xl", opacity: 0.58, rotate: "-2deg" },
+  { text: "Bubbles remembered oat milk.", left: "12%", top: "72%", size: "text-sm md:text-lg", opacity: 0.42, rotate: "4deg" },
+  { text: "Bubbles caught Thursday's renewal.", left: "68%", top: "76%", size: "text-lg md:text-2xl", opacity: 0.66, rotate: "-1deg" },
+  { text: "Bubbles reminded you to call mom.", left: "38%", top: "84%", size: "text-base md:text-xl", opacity: 0.54, rotate: "3deg" },
 ];
 
 export function MemoryLandscape() {
@@ -25,7 +25,7 @@ export function MemoryLandscape() {
         style={{ opacity: titleOpacity, y: titleY }}
         className="mx-auto max-w-2xl text-center text-4xl font-semibold tracking-tight text-black md:text-6xl"
       >
-        You told me that already.
+        It remembers so you do not have to.
       </motion.p>
 
       <div className="absolute inset-0 mx-auto max-w-7xl">

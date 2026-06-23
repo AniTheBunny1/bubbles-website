@@ -65,7 +65,7 @@ export function Waitlist() {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
-              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 shadow-[0_20px_80px_rgba(255,255,255,.22)] outline-none backdrop-blur-xl transition focus:border-white/80"
+              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 outline-none transition focus:border-white/80"
             />
 
             <input
@@ -75,7 +75,7 @@ export function Waitlist() {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
-              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 shadow-[0_20px_80px_rgba(255,255,255,.22)] outline-none backdrop-blur-xl transition focus:border-white/80"
+              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 outline-none transition focus:border-white/80"
             />
 
             <motion.button

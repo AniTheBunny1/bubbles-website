@@ -164,16 +164,13 @@ export function Conversation() {
             y: phoneY,
             opacity: phoneOpacity,
             scale: phoneScale,
-            maxHeight: "600px", 
-            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            maxHeight: "600px",
           }}
         >
-          <div className="absolute left-1/2 top-1/2 z-0 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20 blur-[90px]" />
           <img
             src="/Subject.png"
             alt=""
-            className="relative w-full h-auto block pointer-events-none z-20 drop-shadow-2xl"
+            className="relative z-20 block h-auto w-full pointer-events-none"
           />
 
           <div

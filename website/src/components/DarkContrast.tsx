@@ -19,7 +19,7 @@ export function DarkContrast() {
   return (
     <section className="relative z-10 min-h-[190vh] overflow-hidden bg-[#08080c] px-5 py-40 text-white">
       <div className="film-grain absolute inset-0 opacity-70" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(51,68,122,.35),transparent_36%),linear-gradient(to_bottom,rgba(237,232,245,.55),transparent_14%,transparent_88%,rgba(237,232,245,.2))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(51,68,122,.28),transparent_36%),linear-gradient(to_bottom,#070913,transparent_18%,transparent_88%,#08080c)]" />
       {stars.map((star, index) => (
         <span
           key={index}

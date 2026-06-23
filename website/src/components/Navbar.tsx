@@ -21,11 +21,18 @@ export function Navbar() {
       </a>
 
       {/* Right: CTA Button */}
-      <motion.button 
+      <motion.button
         onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="glass-button px-6 py-3 rounded-full text-sm md:text-base font-semibold text-gray-900 whitespace-nowrap"
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        className="px-6 py-3 rounded-full text-sm md:text-base font-medium text-gray-800 whitespace-nowrap"
+        style={{
+          background: "rgba(255,255,255,0.52)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255,255,255,0.55)",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+        }}
       >
         Get Early Access
       </motion.button>

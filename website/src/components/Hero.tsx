@@ -48,7 +48,7 @@ export function Hero() {
         <motion.div
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-[-18%] rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,.55),rgba(174,204,255,.35),rgba(255,188,230,.35),rgba(184,255,238,.28),rgba(255,255,255,.55))] blur-3xl opacity-70"
+          className="absolute inset-[-8%] rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,.18),rgba(174,204,255,.18),rgba(255,188,230,.16),rgba(184,255,238,.14),rgba(255,255,255,.18))] opacity-50"
         />
         <motion.div
           animate={{ y: [-8, 8, -8], scale: [1, 1.03, 1] }}
@@ -58,7 +58,7 @@ export function Hero() {
           <img
             src="/logo.png"
             alt="Bubbles"
-            className="h-full w-full object-contain drop-shadow-[0_0_60px_rgba(180,200,255,.35)]"
+            className="h-full w-full object-contain"
           />
           <motion.div
             animate={{ rotate: 360 }}
@@ -67,7 +67,7 @@ export function Hero() {
           />
           <motion.div
             style={{ left: highlightX, top: highlightY }}
-            className="absolute h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,.2)_38%,transparent_70%)] blur-sm"
+            className="absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.48),rgba(255,255,255,.12)_38%,transparent_70%)]"
           />
           <motion.div
             animate={{ x: ["-12%", "14%", "-12%"], y: ["10%", "-8%", "10%"] }}
