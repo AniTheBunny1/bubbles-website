@@ -20,16 +20,12 @@ export function InsideBubble() {
   const y = useTransform(scrollYProgress, [0.05, 0.5], [120, 0]);
 
   return (
-    <section ref={ref} className="relative z-10 flex min-h-[145vh] items-center justify-center overflow-hidden px-5 py-32" style={{ background: "linear-gradient(to bottom, #070913, #0e1018 30%, #0e1018 70%, #08080c)" }}>
+    <section ref={ref} className="relative z-10 flex min-h-[145vh] items-center justify-center overflow-hidden px-5 py-32" style={{ background: "linear-gradient(to bottom, #07080f, #0d1018 30%, #0d1018 68%, transparent)" }}>
       <motion.div
         style={{ scale, opacity, y }}
         className="relative aspect-square w-[min(62vw,720px)] min-w-[320px] overflow-hidden rounded-full border border-white/25 bg-[radial-gradient(circle_at_30%_22%,rgba(255,255,255,.42),rgba(219,229,255,.22)_28%,rgba(74,81,122,.28)_62%,rgba(10,12,28,.55))]"
       >
         <div className="absolute inset-0 opacity-25 iridescent-animation bg-[conic-gradient(from_90deg,rgba(255,255,255,.35),rgba(176,210,255,.28),rgba(255,181,225,.22),rgba(187,255,236,.2),rgba(255,255,255,.35))]" />
-        <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
-          <path d="M190 210 C 280 260, 350 160, 460 210 S 540 410, 430 450 S 260 430, 190 520" fill="none" stroke="white" strokeOpacity=".2" strokeWidth="1" />
-          <path d="M300 360 C 410 300, 490 340, 560 430" fill="none" stroke="white" strokeOpacity=".16" strokeWidth="1" />
-        </svg>
         {nodes.map((node, index) => (
           <span
             key={node.text}

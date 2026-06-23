@@ -159,12 +159,11 @@ export function Conversation() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative mx-auto w-[min(460px,88vw)] overflow-hidden"
-          style={{ 
+          className="relative mx-auto w-[min(420px,82vw)]"
+          style={{
             y: phoneY,
             opacity: phoneOpacity,
             scale: phoneScale,
-            maxHeight: "600px",
           }}
         >
           <img
