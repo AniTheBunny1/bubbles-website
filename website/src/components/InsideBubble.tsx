@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useRef } from "react";
 
 const TASKS = [
@@ -70,7 +70,7 @@ export function InsideBubble() {
   );
 }
 
-function BlurBubble({ blurAmount }: { blurAmount: ReturnType<typeof useTransform> }) {
+function BlurBubble({ blurAmount }: { blurAmount: MotionValue<number> }) {
   const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
   return (
     <motion.div
