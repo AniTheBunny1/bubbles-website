@@ -1,44 +1,114 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const nodes = [
-  { text: "notes ready", left: "24%", top: "28%" },
-  { text: "seat picked", left: "62%", top: "24%" },
-  { text: "mom reminded", left: "48%", top: "58%" },
-  { text: "bill fixed", left: "18%", top: "68%" },
-  { text: "flight watched", left: "70%", top: "66%" },
-  { text: "email sent", left: "38%", top: "42%" },
+const TASKS = [
+  "Reply to Gaurav's email",        "Renew Spotify subscription",     "Book dentist appointment",
+  "Check credit card statement",    "File GST return",                 "Order mom's birthday gift",
+  "Fix Google Workspace billing",   "Set rent reminder",               "Cancel Audible trial",
+  "Schedule car service",           "Send freelance invoice #14",       "Read Hemant's proposal",
+  "Confirm flight check-in",        "Update LinkedIn",                  "Pay electricity bill",
+  "Review Notion workspace",        "Call insurance agent",             "Backup phone photos",
+  "Reply to recruiter on LinkedIn", "Set alarm for 6am standup",        "Order groceries for Sunday",
+  "Check iCloud storage",           "Send project update to client",    "Block study time this week",
+  "Renew domain hosting",           "Reply to Priya about collab",      "Clear download folder",
+  "Book cab for airport",           "Read that Substack from last week","Pay outstanding Swiggy order",
 ];
 
 export function InsideBubble() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const scale = useTransform(scrollYProgress, [0.05, 0.45, 0.78], [0.45, 1, 0.76]);
-  const opacity = useTransform(scrollYProgress, [0.02, 0.24, 0.88], [0, 1, 0]);
-  const y = useTransform(scrollYProgress, [0.05, 0.5], [120, 0]);
+
+  const bubbleScale   = useTransform(scrollYProgress, [0.05, 0.52, 0.85], [0.12, 1.35, 1.35]);
+  const bubbleOpacity = useTransform(scrollYProgress, [0.04, 0.22, 0.88], [0, 1, 0]);
+  const blurAmount    = useTransform(scrollYProgress, [0.05, 0.45], [0, 38]);
+  const textOpacity   = useTransform(scrollYProgress, [0.38, 0.58, 0.82], [0, 1, 0]);
+  const textScale     = useTransform(scrollYProgress, [0.38, 0.58], [0.88, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0.04, 0.22], [0, 1]);
 
   return (
-    <section ref={ref} className="relative z-10 flex min-h-[145vh] items-center justify-center overflow-hidden px-5 py-32" style={{ background: "linear-gradient(to bottom, #07080f, #0d1018 30%, #0d1018 68%, transparent)" }}>
+    <section
+      ref={ref}
+      className="relative z-10 flex min-h-[200vh] items-center justify-center overflow-hidden"
+      style={{ background: "linear-gradient(to bottom, #07080f, #07080f)" }}
+    >
+      {/* Dense task text wall — the noise of life */}
       <motion.div
-        style={{ scale, opacity, y }}
-        className="relative aspect-square w-[min(62vw,720px)] min-w-[320px] overflow-hidden rounded-full border border-white/25 bg-[radial-gradient(circle_at_30%_22%,rgba(255,255,255,.42),rgba(219,229,255,.22)_28%,rgba(74,81,122,.28)_62%,rgba(10,12,28,.55))]"
+        style={{ opacity: sectionOpacity }}
+        className="absolute inset-0 flex flex-wrap content-start gap-x-6 gap-y-5 overflow-hidden p-8 pt-16"
+        aria-hidden="true"
       >
-        <div className="absolute inset-0 opacity-25 iridescent-animation bg-[conic-gradient(from_90deg,rgba(255,255,255,.35),rgba(176,210,255,.28),rgba(255,181,225,.22),rgba(187,255,236,.2),rgba(255,255,255,.35))]" />
-        {nodes.map((node, index) => (
+        {/* repeat twice for density */}
+        {[...TASKS, ...TASKS].map((task, i) => (
           <span
-            key={node.text}
-            className="absolute rounded-full bg-white/10 px-2 py-1 text-[10px] text-white/75"
-            style={{ left: node.left, top: node.top, animationDelay: `${index * 0.6}s` }}
+            key={i}
+            className="shrink-0 whitespace-nowrap font-medium text-white/18"
+            style={{ fontSize: `${11 + (i % 5) * 2}px` }}
           >
-            {node.text}
+            {task}
           </span>
         ))}
-        <div className="absolute left-[34%] top-[34%] h-1.5 w-1.5 rounded-full bg-white/70" />
-        <div className="absolute left-[58%] top-[48%] h-1 w-1 rounded-full bg-white/60" />
-        <div className="absolute left-[44%] top-[72%] h-1 w-1 rounded-full bg-white/55" />
       </motion.div>
+
+      {/* The bubble — grows and blurs everything behind it */}
+      <motion.div
+        style={{ scale: bubbleScale, opacity: bubbleOpacity }}
+        className="pointer-events-none absolute"
+      >
+        <BlurBubble blurAmount={blurAmount} />
+      </motion.div>
+
+      {/* Text inside the bubble */}
+      <motion.p
+        style={{ opacity: textOpacity, scale: textScale }}
+        className="relative z-30 text-center text-4xl font-semibold tracking-tight text-white md:text-6xl lg:text-7xl"
+      >
+        Let Bubbles<br />take care of this.
+      </motion.p>
     </section>
+  );
+}
+
+function BlurBubble({ blurAmount }: { blurAmount: ReturnType<typeof useTransform> }) {
+  const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
+  return (
+    <motion.div
+      style={{ backdropFilter }}
+      className="relative flex h-[min(88vw,780px)] w-[min(88vw,780px)] items-center justify-center rounded-full"
+    >
+      {/* Glass sphere */}
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 32% 26%, rgba(255,255,255,0.22), rgba(200,210,255,0.14) 32%, rgba(60,70,120,0.28) 64%, rgba(10,12,28,0.52))",
+          border: "1px solid rgba(255,255,255,0.18)",
+          boxShadow: "inset 0 0 80px rgba(255,255,255,0.06), 0 0 120px rgba(180,190,255,0.12)",
+        }}
+      />
+      {/* Iridescent shimmer */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-4 rounded-full opacity-15"
+        style={{
+          background:
+            "conic-gradient(from 0deg, transparent, rgba(255,255,255,0.5), rgba(160,210,255,0.3), rgba(255,180,230,0.25), transparent)",
+        }}
+      />
+      {/* Specular highlight */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: "28%",
+          height: "18%",
+          top: "14%",
+          left: "22%",
+          background: "radial-gradient(ellipse, rgba(255,255,255,0.45), transparent 70%)",
+          filter: "blur(6px)",
+        }}
+      />
+    </motion.div>
   );
 }
