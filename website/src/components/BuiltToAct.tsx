@@ -26,22 +26,19 @@ export function BuiltToAct() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {[
             {
               title: "3-Layer Persistent Memory",
-              desc: "Continuously learns, updates, and retrieves context. Assigns weights to what matters. Refreshes daily.",
-              tag: "NO MORE CONTEXT POISONING"
+              desc: "Continuously learns, updates, and retrieves context. Assigns weights to what matters. Refreshes daily. No more context poisoning."
             },
             {
               title: "Adaptive Personality Engine",
-              desc: "Evolves its communication style, sentence structure, and tone uniquely for every user.",
-              tag: null
+              desc: "Evolves its communication style, sentence structure, and tone uniquely for every user. The longer you use it, the more it feels like yours."
             },
             {
               title: "Workflow Automation",
-              desc: "Set up complex workflows and let Bubbles run your tasks in the background. You ask once, it handles the rest.",
-              tag: null
+              desc: "Set up complex workflows and let Bubbles run your tasks in the background. You ask once, it handles the rest. No babysitting required."
             }
           ].map((card, i) => (
             <motion.div
@@ -51,18 +48,11 @@ export function BuiltToAct() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass-card p-8 rounded-2xl relative overflow-hidden group flex flex-col"
+              className="glass-card p-10 md:p-12 rounded-3xl relative overflow-hidden group flex flex-col min-h-[260px]"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3 relative z-10">{card.title}</h3>
-              <p className="text-gray-600 leading-relaxed relative z-10">{card.desc}</p>
-              {card.tag && (
-                <div className="mt-5 relative z-10">
-                  <span className="text-xs font-bold tracking-wide text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full">
-                    {card.tag}
-                  </span>
-                </div>
-              )}
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 relative z-10">{card.title}</h3>
+              <p className="text-gray-600 text-base leading-relaxed relative z-10">{card.desc}</p>
             </motion.div>
           ))}
         </div>
