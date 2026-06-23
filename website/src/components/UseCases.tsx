@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const USE_CASES = [
   { title: "Clear your inbox",       desc: "Read, draft, and send. Triage your email in seconds, not minutes." },
-  { title: "Book flights",           desc: "Search, compare, confirm. No tab-switching, no form-filling." },
+  { title: "Place orders",            desc: "Blinkit, Swiggy, Amazon. Tell it what you want. It pays and confirms." },
   { title: "Order groceries",        desc: "Say what you need. It shows up at your door." },
   { title: "Prep for meetings",      desc: "Pulls everything you know about the person you're about to talk to." },
   { title: "Track your money",       desc: "Subscriptions, spending, failed payments. Always on top of it." },

@@ -134,6 +134,15 @@ body {
   animation: shimmer 3s infinite;
 }
 
+/* Hide scrollbar (used inside phone frame) */
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;

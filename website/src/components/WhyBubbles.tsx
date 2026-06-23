@@ -37,7 +37,12 @@ export function WhyBubbles() {
             </p>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[1.05] mb-8">
               Most AIs<br />suggest.<br />
-              <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.4)", color: "transparent" }}>
+              <span style={{
+                background: "linear-gradient(90deg, #a78bfa, #67e8f9)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
                 We act.
               </span>
             </h2>
