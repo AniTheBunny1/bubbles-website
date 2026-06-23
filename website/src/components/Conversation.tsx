@@ -43,26 +43,32 @@ const MessageBubble = ({ role, text, image }: Message) => {
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
       {isAI && (
-        <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-3 bg-white/20">
+        <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-3 bg-white/10">
           <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
         </div>
       )}
       <div
         className={`rounded-2xl max-w-[78%] overflow-hidden text-sm leading-relaxed ${
           isAI
-            ? "bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] border border-white/10 rounded-tl-sm text-gray-200"
-            : "bg-[#005c4b] border border-[#005c4b]/50 rounded-tr-sm text-white"
+            ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
+            : "bg-[#005c4b] rounded-tr-sm text-white"
         }`}
       >
         {image && (
-          <img
-            src={image}
-            alt="Delivered"
-            className="w-full max-h-52 object-cover"
-          />
+          <div className="relative">
+            <img
+              src={image}
+              alt="Delivered"
+              className="w-full max-h-60 object-cover"
+              style={{ borderRadius: "inherit" }}
+            />
+            <div className="absolute inset-0 rounded-tl-2xl rounded-tr-2xl" />
+          </div>
         )}
         {text && (
-          <p className="px-5 py-3 whitespace-pre-line">{text}</p>
+          <p className={`px-4 py-2.5 whitespace-pre-line ${image ? "border-t border-white/10" : ""}`}>
+            {text}
+          </p>
         )}
       </div>
     </motion.div>
@@ -80,7 +86,7 @@ const TypingIndicator = () => (
     <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-3 bg-white/20">
       <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
     </div>
-    <div className="px-5 py-3 rounded-2xl rounded-tl-sm bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] border border-white/10">
+    <div className="px-5 py-3 rounded-2xl rounded-tl-sm bg-[#202c33] border border-white/5">
       <div className="flex gap-1 items-center h-4">
         {[0, 1, 2].map((i) => (
           <motion.div
@@ -169,29 +175,35 @@ export function Conversation() {
           transition={{ delay: 0.15 }}
           className="glass-card rounded-3xl overflow-hidden"
         >
-          {/* Chat Header */}
-          <div className="px-6 py-4 border-b border-white/20 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-white/30 flex items-center justify-center shrink-0">
+          {/* Chat Header - WhatsApp dark style */}
+          <div className="px-5 py-3 flex items-center gap-3" style={{ backgroundColor: "#1f2c34" }}>
+            <div className="w-9 h-9 rounded-full overflow-hidden shrink-0 bg-white/10 flex items-center justify-center">
               <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">Bubbles</p>
+              <p className="text-sm font-semibold text-white">Bubbles</p>
               <div className="flex items-center gap-1.5">
                 <motion.div
-                  animate={{ opacity: [1, 0.3, 1] }}
+                  animate={{ opacity: [1, 0.4, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                   className="w-1.5 h-1.5 rounded-full bg-green-400"
                 />
-                <span className="text-xs text-gray-500">online</span>
+                <span className="text-xs text-gray-400">online</span>
               </div>
             </div>
           </div>
 
-          {/* Messages */}
+          {/* Messages - WhatsApp dark background with subtle dot pattern */}
           <div
             ref={chatRef}
-            className="p-6 space-y-4 h-96 overflow-y-auto"
-            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(0,0,0,0.08) transparent" }}
+            className="p-5 space-y-3 h-96 overflow-y-auto"
+            style={{
+              backgroundColor: "#111b21",
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(255,255,255,0.1) transparent"
+            }}
           >
             {visibleMessages.map((msg, i) => (
               <MessageBubble key={i} role={msg.role} text={msg.text} image={msg.image} />

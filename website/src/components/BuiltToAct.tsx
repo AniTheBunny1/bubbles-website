@@ -30,15 +30,18 @@ export function BuiltToAct() {
           {[
             {
               title: "3-Layer Persistent Memory",
-              desc: "Continuously learns, updates, and retrieves context. Assigns weights to what matters. Refreshes daily."
+              desc: "Continuously learns, updates, and retrieves context. Assigns weights to what matters. Refreshes daily.",
+              tag: "NO MORE CONTEXT POISONING"
             },
             {
               title: "Adaptive Personality Engine",
-              desc: "Evolves its communication style, sentence structure, and tone uniquely for every user."
+              desc: "Evolves its communication style, sentence structure, and tone uniquely for every user.",
+              tag: null
             },
             {
-              title: "Hermes Agent Framework",
-              desc: "Executes complex workflows, manages tools, runs scripts, and navigates the web on your behalf."
+              title: "Workflow Automation",
+              desc: "Set up complex workflows and let Bubbles run your tasks in the background. You ask once, it handles the rest.",
+              tag: null
             }
           ].map((card, i) => (
             <motion.div
@@ -48,13 +51,18 @@ export function BuiltToAct() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass-card p-8 rounded-2xl relative overflow-hidden group"
+              className="glass-card p-8 rounded-2xl relative overflow-hidden group flex flex-col"
             >
-              {/* Subtle glass hover highlight */}
               <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
               <h3 className="text-xl font-bold text-gray-900 mb-3 relative z-10">{card.title}</h3>
               <p className="text-gray-600 leading-relaxed relative z-10">{card.desc}</p>
+              {card.tag && (
+                <div className="mt-5 relative z-10">
+                  <span className="text-xs font-bold tracking-wide text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full">
+                    {card.tag}
+                  </span>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
