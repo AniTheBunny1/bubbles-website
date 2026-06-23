@@ -46,7 +46,7 @@ export function CapabilityNetwork() {
     const centerY = canvasSize.height / 2;
 
     ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-    ctx.strokeStyle = `rgba(255, 255, 255, ${hoveredCapability ? 0.15 : 0.08})`;
+    ctx.strokeStyle = `rgba(130, 140, 190, ${hoveredCapability ? 0.55 : 0.3})`;
     ctx.lineWidth = 1.5;
 
     // Draw connecting lines
@@ -67,7 +67,7 @@ export function CapabilityNetwork() {
 
       // Draw to center
       if (hoveredCapability === cap.id) {
-        ctx.strokeStyle = `rgba(91, 134, 229, 0.3)`;
+        ctx.strokeStyle = `rgba(91, 134, 229, 0.6)`;
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
@@ -123,8 +123,6 @@ export function CapabilityNetwork() {
             style={{
               width: 80,
               height: 80,
-              x: "-50%",
-              y: "-50%"
             }}
           >
             <div className="w-full h-full rounded-full glass-card flex items-center justify-center border-white/40">

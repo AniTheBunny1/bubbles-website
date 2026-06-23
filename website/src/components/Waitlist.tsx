@@ -1,33 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Waitlist() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [showBubbles, setShowBubbles] = useState(false);
   const [formData, setFormData] = useState({ email: "", phone: "" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const animatingRef = useRef(false);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    const section = sectionRef.current;
+    if (!section) return;
 
-    const handleScroll = () => {
-      const isOverscrollingBottom = 
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animatingRef.current) {
+          animatingRef.current = true;
+          setShowBubbles(true);
+          setTimeout(() => {
+            setShowBubbles(false);
+            animatingRef.current = false;
+          }, 6000);
+        }
+      },
+      { threshold: 0.25 }
+    );
 
-      if (isOverscrollingBottom && !showBubbles) {
-        setShowBubbles(true);
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => setShowBubbles(false), 3000);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timeoutId);
-    };
-  }, [showBubbles]);
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,22 +61,24 @@ export function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="py-32 px-4 relative z-10 overflow-hidden">
-      {/* Animated Rising Bubbles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <section ref={sectionRef} id="waitlist" className="py-32 px-4 relative z-10 overflow-hidden">
+      {/* Animated Rising Bubbles - fixed so they float over the whole site */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
         {showBubbles && [
-          { size: 40,  left: 12, delay: 0,    duration: 3.2 },
-          { size: 70,  left: 22, delay: 0.15, duration: 3.8 },
-          { size: 30,  left: 35, delay: 0.05, duration: 2.9 },
-          { size: 90,  left: 45, delay: 0.3,  duration: 4.1 },
-          { size: 50,  left: 55, delay: 0.1,  duration: 3.5 },
-          { size: 110, left: 65, delay: 0.25, duration: 4.4 },
-          { size: 35,  left: 74, delay: 0,    duration: 3.0 },
-          { size: 75,  left: 82, delay: 0.2,  duration: 3.7 },
-          { size: 55,  left: 18, delay: 0.35, duration: 3.3 },
-          { size: 95,  left: 50, delay: 0.08, duration: 4.0 },
-          { size: 42,  left: 70, delay: 0.18, duration: 3.1 },
-          { size: 65,  left: 30, delay: 0.28, duration: 3.6 },
+          { size: 40,  left: 8,  delay: 0,    duration: 4.5 },
+          { size: 70,  left: 18, delay: 0.4,  duration: 5.2 },
+          { size: 30,  left: 28, delay: 0.1,  duration: 4.0 },
+          { size: 90,  left: 38, delay: 0.7,  duration: 5.6 },
+          { size: 50,  left: 48, delay: 0.2,  duration: 4.8 },
+          { size: 110, left: 58, delay: 0.5,  duration: 6.0 },
+          { size: 35,  left: 66, delay: 0.15, duration: 4.2 },
+          { size: 75,  left: 75, delay: 0.6,  duration: 5.4 },
+          { size: 55,  left: 14, delay: 0.9,  duration: 4.6 },
+          { size: 95,  left: 85, delay: 0.25, duration: 5.8 },
+          { size: 42,  left: 52, delay: 0.45, duration: 4.3 },
+          { size: 65,  left: 33, delay: 0.8,  duration: 5.0 },
+          { size: 28,  left: 92, delay: 0.3,  duration: 3.9 },
+          { size: 80,  left: 5,  delay: 1.0,  duration: 5.5 },
         ].map((b, i) => (
           <motion.img
             key={i}
@@ -81,10 +86,10 @@ export function Waitlist() {
             alt=""
             initial={{ y: 0, opacity: 0, scale: 0.4 }}
             animate={{
-              y: -(700 + i * 40),
-              opacity: [0, 0.95, 0],
-              scale: [0.4, 1.1, 0.9],
-              x: Math.sin(i * 0.8) * 120
+              y: -1400,
+              opacity: [0, 0.9, 0.9, 0],
+              scale: [0.4, 1.0, 0.85],
+              x: [0, Math.sin(i * 0.9) * 80, Math.sin(i * 0.9 + 1) * 60]
             }}
             transition={{
               duration: b.duration,
