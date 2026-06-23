@@ -24,7 +24,7 @@ export function FeaturePills() {
             whileHover={{ y: -5, scale: 1.02 }}
             className="flex items-center gap-3 px-6 py-4 glass-card rounded-2xl cursor-pointer group"
           >
-            <div className="p-2 rounded-full bg-white/50 group-hover:bg-white/80 transition-colors">
+            <div className="p-2 rounded-full bg-white/50 group-hover:bg-white/80 transition-colors duration-300">
               <pill.icon className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
             </div>
             <span className="font-medium text-gray-800 tracking-tight">
