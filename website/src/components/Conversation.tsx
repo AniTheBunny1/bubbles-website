@@ -67,20 +67,15 @@ const MessageBubble = ({ role, text, image }: Message) => {
       transition={{ duration: 0.25, ease: "easeOut" }}
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
-      {isAI && (
-        <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1 mr-2 bg-white/10">
-          <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
-        </div>
-      )}
       <div
-        className={`rounded-2xl max-w-[78%] overflow-hidden text-xs leading-relaxed ${
+        className={`rounded-2xl max-w-[85%] overflow-hidden text-[11px] leading-relaxed ${
           isAI
             ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
             : "bg-[#005c4b] rounded-tr-sm text-white"
         }`}
       >
         {image && (
-          <img src={image} alt="Delivered" className="w-full max-h-40 object-cover" />
+          <img src={image} alt="Delivered" className="w-full max-h-36 object-cover" />
         )}
         {text && (
           <p className={`px-3 py-2 whitespace-pre-line ${image ? "border-t border-white/10" : ""}`}>
@@ -100,9 +95,6 @@ const TypingIndicator = () => (
     transition={{ duration: 0.2 }}
     className="flex justify-start w-full"
   >
-    <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1 mr-2 bg-white/20">
-      <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
-    </div>
     <div className="px-4 py-2.5 rounded-2xl rounded-tl-sm bg-[#202c33] border border-white/5">
       <div className="flex gap-1 items-center h-3">
         {[0, 1, 2].map((i) => (
@@ -187,17 +179,17 @@ export function Conversation() {
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
           className="relative mx-auto"
-          style={{ maxWidth: 320, aspectRatio: "390 / 844" }}
+          style={{ width: "min(460px, 88vw)", aspectRatio: "390 / 844" }}
         >
-          {/* Screen content — insets calibrated for a standard iPhone 14 frame PNG */}
+          {/* Screen content — insets for standard iPhone 14 Pro frame PNG */}
           <div
             className="absolute flex flex-col overflow-hidden"
             style={{
-              top: "11%",
-              left: "6.8%",
-              right: "6.8%",
-              bottom: "9%",
-              borderRadius: 18,
+              top: "12%",
+              left: "6%",
+              right: "6%",
+              bottom: "8%",
+              borderRadius: 44,
               backgroundColor: "#111b21",
             }}
           >
