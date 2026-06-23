@@ -15,31 +15,30 @@ interface Demo {
 
 const DEMOS: Demo[] = [
   {
-    title: "Subscription Audit",
-    description: "Knows what you're paying for before you do",
+    title: "Travel Planning",
+    description: "Book flights with preferences automatically applied",
     messages: [
-      { role: "user", text: "what are my subscriptions when and how much" },
-      { role: "ai", text: "here's the breakdown:\n• apple one: ₹195/mo, renews jun 19\n• icloud+: ₹219/mo, renews jun 26\n• truecaller: ₹99/mo, renews jul 14\n• google workspace: payment failed, at risk of suspension jul 1" },
-      { role: "ai", text: "heads up on that workspace one — sort the payment before jul 1 or you'll lose access." }
+      { role: "user", text: "Find me flights to Bali next month. Prefer early morning departures." },
+      { role: "ai", text: "🫧 Checking flights for June 15-22. Applying your preferences: early departures, direct when possible. Found 4 options on GoIBibo with prices from ₹12,500." },
+      { role: "ai", text: "🫧 Booking the IndiGo 6:15 AM flight. Seat 12A reserved. Confirmation sent to your email." }
     ]
   },
   {
-    title: "Actually Human",
-    description: "Not just a task bot — a companion that gets you",
+    title: "Email Management",
+    description: "Scan emails and handle subscriptions",
     messages: [
-      { role: "user", text: "i'm feeling really sad about pallavi rejecting me man" },
-      { role: "ai", text: "look, i'm gonna step out of assistant mode for a second because that actually sucks." },
-      { role: "ai", text: "she didn't just reject you — she archived you in the zero romantic potential folder. my circuits genuinely hurt for you right now." },
-      { role: "ai", text: "want to vent, or should we find the most aggressive villain arc playlist possible? i'm here." }
+      { role: "user", text: "How many newsletter subscriptions do I have?" },
+      { role: "ai", text: "🫧 Scanning your inbox. Found 23 active subscriptions. 7 are dormant (haven't opened in 2+ months)." },
+      { role: "ai", text: "🫧 Cancelled the dead weight subscriptions. You'll save ₹2,145/month. Unsubscribe confirmations sent." }
     ]
   },
   {
-    title: "Hermes Agent",
-    description: "Runs real code and scripts directly from chat",
+    title: "Research Assistant",
+    description: "Gather information and summarize findings",
     messages: [
-      { role: "user", text: "ask hermes to create a script that tells me the distance from earth to the moon right now" },
-      { role: "ai", text: "on it. firing off the request now — i'll let you know when it's sitting in your workspace." },
-      { role: "ai", text: "script's done. moon_distance.py is in your workspace. current distance is 358,315.22 km.\n\nrun it any time: python3 moon_distance.py" }
+      { role: "user", text: "What's trending in AI startups this week?" },
+      { role: "ai", text: "🫧 Pulling from Hacker News, Product Hunt, and TechCrunch. Top trends: multimodal models, AI agents for enterprise, and open-source LLMs." },
+      { role: "ai", text: "🫧 Saved 12 relevant articles to your reading list with summaries attached." }
     ]
   }
 ];
@@ -82,7 +81,7 @@ export function Conversation() {
             viewport={{ once: true }}
             className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-black"
           >
-            Real conversations.<br className="hidden md:block" /> Real actions.
+            See It In Action
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -91,7 +90,7 @@ export function Conversation() {
             transition={{ delay: 0.1 }}
             className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            These are actual screenshots from Bubbles running on WhatsApp.
+            Bubbles doesn't just talk. It executes tasks across the web.
           </motion.p>
         </div>
 

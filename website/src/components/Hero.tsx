@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-20">
 
-      {/* Logo — no glass bubble, no shadow */}
+      {/* Logo - no glass bubble, no shadow */}
       <motion.div
         style={{ scale, opacity, y }}
         initial={{ opacity: 0, scale: 0.6 }}
@@ -57,7 +57,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto leading-relaxed"
         >
-          Lives in WhatsApp. Remembers everything. Doesn't just suggest — it executes.
+          Lives in WhatsApp. Remembers everything. Doesn't just suggest, it executes.
         </motion.p>
 
         <motion.p
