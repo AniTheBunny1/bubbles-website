@@ -172,13 +172,18 @@ export function Conversation() {
           </motion.p>
         </div>
 
-        {/* iPhone frame */}
+        {/* iPhone frame container, clipped to top half with a fade out */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          className="relative mx-auto w-[min(460px,88vw)]"
+          className="relative mx-auto w-[min(460px,88vw)] overflow-hidden"
+          style={{ 
+            maxHeight: "600px", 
+            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)" 
+          }}
         >
           {/* Phone frame overlay — dictates aspect ratio */}
           <img
@@ -195,7 +200,7 @@ export function Conversation() {
               left: "4.69%",
               right: "4.99%",
               bottom: "2.32%",
-              borderRadius: "10%",
+              borderRadius: "12.5%", /* Increased to perfectly hug the corners */
               backgroundColor: "#111b21",
             }}
           >
