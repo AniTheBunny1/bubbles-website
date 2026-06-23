@@ -68,7 +68,7 @@ const MessageBubble = ({ role, text, image }: Message) => {
       className={`flex ${isAI ? "justify-start" : "justify-end"} w-full`}
     >
       <div
-        className={`rounded-2xl max-w-[85%] overflow-hidden text-sm leading-relaxed ${
+        className={`rounded-2xl max-w-[88%] overflow-hidden text-[15px] leading-relaxed ${
           isAI
             ? "bg-[#202c33] border border-white/5 rounded-tl-sm text-gray-200"
             : "bg-[#005c4b] rounded-tr-sm text-white"
@@ -78,7 +78,7 @@ const MessageBubble = ({ role, text, image }: Message) => {
           <img src={image} alt="Delivered" className="w-full max-h-36 object-cover" />
         )}
         {text && (
-          <p className={`px-3 py-2 whitespace-pre-line ${image ? "border-t border-white/10" : ""}`}>
+          <p className={`px-3.5 py-2.5 whitespace-pre-line ${image ? "border-t border-white/10" : ""}`}>
             {text}
           </p>
         )}
@@ -179,33 +179,33 @@ export function Conversation() {
               left: "4.69%",
               right: "4.99%",
               bottom: "2.32%",
-              borderRadius: "12.5%",
+              borderRadius: "7% / 3.25%",
               backgroundColor: "#111b21",
             }}
           >
             <div
-              className="px-3 py-2 flex items-center gap-2 shrink-0"
-              style={{ backgroundColor: "#1f2c34", paddingTop: "max(12px, 8%)" }}
+              className="px-4 py-3 flex items-center gap-3 shrink-0"
+              style={{ backgroundColor: "#1f2c34", paddingTop: "max(16px, 9%)" }}
             >
-              <div className="w-7 h-7 rounded-full overflow-hidden shrink-0 bg-white/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-white/10 flex items-center justify-center">
                 <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-white leading-none">Bubbles</p>
-                <div className="flex items-center gap-1 mt-0.5">
+                <p className="text-sm font-semibold text-white leading-none">Bubbles</p>
+                <div className="flex items-center gap-1.5 mt-1">
                   <motion.div
                     animate={{ opacity: [1, 0.3, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-1 h-1 rounded-full bg-green-400"
+                    className="w-1.5 h-1.5 rounded-full bg-green-400"
                   />
-                  <span className="text-[10px] text-gray-400">online</span>
+                  <span className="text-xs text-gray-400">online</span>
                 </div>
               </div>
             </div>
 
             <div
               ref={chatRef}
-              className="flex-1 overflow-y-auto scrollbar-hide p-3 space-y-2"
+              className="flex-1 overflow-y-auto scrollbar-hide p-4 space-y-3"
               style={{
                 backgroundColor: "#111b21",
                 backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
