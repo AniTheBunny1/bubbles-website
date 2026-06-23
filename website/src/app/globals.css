@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e6f2ff; /* Very light sky blue */
   --foreground: #000000;
   --text-secondary: #666666;
   --glass-bg: rgba(255, 255, 255, 0.6);
@@ -19,8 +18,17 @@
 }
 
 html, body {
-  background-color: var(--background);
   min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #e8f5ff 0%,
+    #f0e6ff 20%,
+    #ffe6f4 40%,
+    #e6f9ff 60%,
+    #f4e6ff 80%,
+    #e8f5ff 100%
+  );
+  background-attachment: fixed;
 }
 
 body {
@@ -40,7 +48,7 @@ body {
 }
 
 @utility glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.25));
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -54,4 +62,81 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Premium Glass Button */
+@utility glass-button {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.15));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.25));
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@utility float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glow Effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(91, 134, 229, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(91, 134, 229, 0.5);
+  }
+}
+
+@utility glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Shimmer Effect for Glass */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@utility shimmer {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Styles */
+::selection {
+  background-color: rgba(91, 134, 229, 0.2);
+  color: inherit;
 }

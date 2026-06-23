@@ -9,12 +9,6 @@ export function Hero() {
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const y = useTransform(scrollY, [0, 500], [0, 50]);
 
-  const pills = [
-    "WhatsApp Native",
-    "3-Layer Memory",
-    "Browser Automation",
-    "Hermes Agent"
-  ];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-20">
@@ -69,32 +63,13 @@ export function Hero() {
           Stop managing the chaos and start living.
         </motion.p>
 
-        {/* Pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-3 pt-4"
-        >
-          {pills.map((pill, i) => (
-            <motion.div
-              key={pill}
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ duration: 4, delay: i * 0.2, repeat: Infinity, ease: "easeInOut" }}
-              className="glass px-5 py-2 rounded-full text-sm font-medium text-gray-700 hover:bg-white/50 transition-all duration-300"
-            >
-              {pill}
-            </motion.div>
-          ))}
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="pt-4"
         >
-          <p className="text-sm text-gray-500">Built by two student founders from MIT Manipal. Live in beta.</p>
+          <p className="text-sm text-gray-500 font-medium">Bootstrapped 4L+ for development. Public beta out soon.</p>
         </motion.div>
       </motion.div>
 

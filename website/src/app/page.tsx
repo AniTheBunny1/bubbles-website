@@ -1,9 +1,13 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Conversation } from "@/components/Conversation";
+import { PersonalitySelector } from "@/components/PersonalitySelector";
+import { CapabilityNetwork } from "@/components/CapabilityNetwork";
 import { BuiltToAct } from "@/components/BuiltToAct";
 import { UseCases } from "@/components/UseCases";
+import { WhyBubbles } from "@/components/WhyBubbles";
 import { Waitlist } from "@/components/Waitlist";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -11,9 +15,13 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Conversation />
+      <PersonalitySelector />
+      <CapabilityNetwork />
       <BuiltToAct />
       <UseCases />
+      <WhyBubbles />
       <Waitlist />
+      <Footer />
     </main>
   );
 }
