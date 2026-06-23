@@ -40,15 +40,58 @@ const cloudsMid = [
   { w: 320, h: 140, left: "74%",  top: "55%", color: "rgba(228,218,255,0.28)", dur: "16s"   },
 ];
 
+/* ── Layer 6: micro bubbles — tiny, barely there ─────────────── */
+const microBubbles = Array.from({ length: 24 }, (_, i) => ({
+  left:    `${(i * 43 + 7) % 100}%`,
+  top:     `${(i * 67 + 13) % 100}%`,
+  size:    2 + (i % 5) * 1.4,
+  delay:   `${(i * 0.7) % 9}s`,
+  opacity: 0.10 + (i % 4) * 0.025,
+}));
+
+/* ── Layer 7: refraction streaks — thin iridescent slivers ───── */
+const refractionStreaks = [
+  { left: "11%",  top: "26%", width: 160, angle: "-22deg", color: "rgba(200,220,255,0.06)",  delay: "0s"  },
+  { left: "54%",  top: "13%", width: 200, angle: "18deg",  color: "rgba(255,200,220,0.055)", delay: "5s"  },
+  { left: "77%",  top: "61%", width: 140, angle: "-15deg", color: "rgba(180,255,220,0.05)",  delay: "11s" },
+  { left: "27%",  top: "71%", width: 180, angle: "28deg",  color: "rgba(220,200,255,0.055)", delay: "8s"  },
+  { left: "8%",   top: "47%", width: 120, angle: "-35deg", color: "rgba(255,245,200,0.045)", delay: "3s"  },
+  { left: "62%",  top: "38%", width: 150, angle: "12deg",  color: "rgba(200,240,255,0.05)",  delay: "14s" },
+];
+
+/* ── Layer 8: rainbow glints — momentary color sparks ────────── */
+const rainbowGlints = [
+  { left: "22%",  top: "31%", size: 2.5, color: "rgba(255,90,130,0.13)",  delay: "0s"    },
+  { left: "68%",  top: "19%", size: 2,   color: "rgba(255,200,50,0.11)",  delay: "1.8s"  },
+  { left: "14%",  top: "58%", size: 3,   color: "rgba(80,220,180,0.11)",  delay: "4.2s"  },
+  { left: "82%",  top: "44%", size: 2,   color: "rgba(80,160,255,0.13)",  delay: "2.6s"  },
+  { left: "38%",  top: "82%", size: 2.5, color: "rgba(200,80,255,0.12)",  delay: "7.1s"  },
+  { left: "51%",  top: "6%",  size: 1.5, color: "rgba(255,160,80,0.11)",  delay: "3.5s"  },
+  { left: "5%",   top: "78%", size: 2,   color: "rgba(120,255,180,0.12)", delay: "5.9s"  },
+  { left: "91%",  top: "68%", size: 2.5, color: "rgba(80,200,255,0.13)",  delay: "1.1s"  },
+];
+
+/* ── Layer 9: bokeh circles — large soft out-of-focus rings ──── */
+const bokehCircles = [
+  { left: "16%",  top: "22%", size: 48, delay: "0s"   },
+  { left: "72%",  top: "8%",  size: 36, delay: "3.2s" },
+  { left: "88%",  top: "48%", size: 58, delay: "6.8s" },
+  { left: "32%",  top: "64%", size: 42, delay: "1.5s" },
+  { left: "56%",  top: "86%", size: 32, delay: "9.4s" },
+  { left: "3%",   top: "36%", size: 52, delay: "4.7s" },
+];
+
 export function ParallaxAtmosphere() {
   const { scrollY } = useScroll();
 
-  /* different parallax speeds per depth layer */
   const cloudFarY   = useTransform(scrollY, [0, 3000], [0,  -90]);
   const cloudMidY   = useTransform(scrollY, [0, 3000], [0, -180]);
   const iridY       = useTransform(scrollY, [0, 3000], [0, -260]);
   const bubbleY     = useTransform(scrollY, [0, 3000], [0, -400]);
   const particleY   = useTransform(scrollY, [0, 3000], [0, -600]);
+  const microY      = useTransform(scrollY, [0, 3000], [0, -520]);
+  const streakY     = useTransform(scrollY, [0, 3000], [0, -320]);
+  const glintY      = useTransform(scrollY, [0, 3000], [0, -680]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -135,6 +178,83 @@ export function ParallaxAtmosphere() {
               top:    sparkle.top,
               animationDelay:  sparkle.delay,
               boxShadow: "0 0 6px rgba(255,255,255,.42)",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ── Layer 6: micro bubbles — almost invisible ─────────────── */}
+      <motion.div style={{ y: microY }} className="absolute inset-0">
+        {microBubbles.map((b, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full bubble-orb twinkle-animation"
+            style={{
+              width:        b.size,
+              height:       b.size,
+              left:         b.left,
+              top:          b.top,
+              opacity:      b.opacity,
+              animationDelay: b.delay,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ── Layer 7: refraction streaks ──────────────────────────── */}
+      <motion.div style={{ y: streakY }} className="absolute inset-0">
+        {refractionStreaks.map((s, i) => (
+          <div
+            key={i}
+            className="absolute drift-animation"
+            style={{
+              left:    s.left,
+              top:     s.top,
+              width:   s.width,
+              height:  2,
+              background: `linear-gradient(to right, transparent, ${s.color}, transparent)`,
+              filter:  "blur(2px)",
+              transform: `rotate(${s.angle})`,
+              animationDelay: s.delay,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ── Layer 8: rainbow glints ───────────────────────────────── */}
+      <motion.div style={{ y: glintY }} className="absolute inset-0">
+        {rainbowGlints.map((g, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full twinkle-animation"
+            style={{
+              left:    g.left,
+              top:     g.top,
+              width:   g.size,
+              height:  g.size,
+              background: g.color,
+              boxShadow:  `0 0 ${g.size * 3}px ${g.color}`,
+              filter:  "blur(0.5px)",
+              animationDelay: g.delay,
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ── Layer 9: bokeh circles — soft out-of-focus rings ─────── */}
+      <motion.div style={{ y: bubbleY }} className="absolute inset-0">
+        {bokehCircles.map((b, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full breathe-animation"
+            style={{
+              left:   b.left,
+              top:    b.top,
+              width:  b.size,
+              height: b.size,
+              border: "0.5px solid rgba(200,215,255,0.10)",
+              boxShadow: "0 0 12px rgba(200,215,255,0.06), inset 0 0 8px rgba(220,230,255,0.04)",
+              animationDelay: b.delay,
             }}
           />
         ))}

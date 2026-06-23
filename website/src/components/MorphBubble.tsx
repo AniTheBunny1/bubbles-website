@@ -1,29 +1,37 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+
+const floatingMemories = [
+  { text: "Meeting with Gaurav",         startX: "-32vw", startY: "-20vh", driftStart: 0.30, driftEnd: 0.50 },
+  { text: "Mum's birthday this week",    startX: "28vw",  startY: "-24vh", driftStart: 0.32, driftEnd: 0.52 },
+  { text: "Running low on groceries",    startX: "-34vw", startY: "6vh",   driftStart: 0.31, driftEnd: 0.51 },
+  { text: "These subscriptions add up",  startX: "30vw",  startY: "10vh",  driftStart: 0.33, driftEnd: 0.53 },
+  { text: "That proposal from Hemant",   startX: "-18vw", startY: "26vh",  driftStart: 0.35, driftEnd: 0.55 },
+  { text: "Flight lands at 6am",         startX: "22vw",  startY: "24vh",  driftStart: 0.34, driftEnd: 0.54 },
+  { text: "Too many newsletters",        startX: "-6vw",  startY: "-32vh", driftStart: 0.29, driftEnd: 0.49 },
+  { text: "Remind me Sunday",            startX: "8vw",   startY: "34vh",  driftStart: 0.36, driftEnd: 0.56 },
+];
 
 export function MorphBubble() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
-  // flat arc (scaleY ≈ 0) → full sphere (scaleY = 1)
-  const scaleY      = useTransform(scrollYProgress, [0.08, 0.34], [0.018, 1]);
-  const opacity     = useTransform(scrollYProgress, [0.05, 0.18, 0.78, 0.90], [0, 1, 1, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0.32, 0.47], [0, 1]);
-  const textY       = useTransform(scrollYProgress, [0.32, 0.47], [14, 0]);
+  // flat arc → full sphere
+  const scaleY        = useTransform(scrollYProgress, [0.06, 0.26], [0.018, 1]);
+  const bubbleOpacity = useTransform(scrollYProgress, [0.04, 0.16, 0.84, 0.94], [0, 1, 1, 0]);
+  // glow that intensifies as memories are absorbed
+  const absorbGlow    = useTransform(scrollYProgress, [0.26, 0.40, 0.58, 0.68], [0, 1, 1, 0]);
+  const textOpacity   = useTransform(scrollYProgress, [0.56, 0.68], [0, 1]);
+  const textY         = useTransform(scrollYProgress, [0.56, 0.68], [16, 0]);
 
   return (
-    <section ref={ref} className="relative z-10 min-h-[240vh]">
+    <section ref={ref} className="relative z-10 min-h-[280vh]">
       <div className="sticky top-0 flex h-screen items-center justify-center">
 
-        {/* scroll-driven morph */}
-        <motion.div style={{ scaleY, opacity }}>
-
-          {/* breathing pulse — separate element avoids fighting scaleY */}
+        {/* The bubble */}
+        <motion.div style={{ scaleY, opacity: bubbleOpacity }}>
           <motion.div
             animate={{ scale: [1, 1.022, 1] }}
             transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
@@ -32,8 +40,7 @@ export function MorphBubble() {
               className="relative"
               style={{ width: "min(60vw, 460px)", height: "min(60vw, 460px)" }}
             >
-
-              {/* ground shadow — floats below the sphere */}
+              {/* ground shadow */}
               <div
                 className="pointer-events-none absolute"
                 style={{
@@ -44,29 +51,40 @@ export function MorphBubble() {
                 }}
               />
 
+              {/* absorption glow — pulses as memories drift in */}
+              <motion.div
+                style={{
+                  opacity: absorbGlow,
+                  position: "absolute",
+                  inset: "-16%",
+                  borderRadius: "50%",
+                  background:
+                    "radial-gradient(circle, rgba(195,190,255,0.22) 0%, rgba(175,205,255,0.11) 44%, transparent 68%)",
+                  filter: "blur(26px)",
+                  pointerEvents: "none",
+                }}
+              />
+
               {/* outer ambient halo */}
               <div
                 className="pointer-events-none absolute rounded-full"
                 style={{
                   inset: "-18%",
-                  background:
-                    "radial-gradient(circle, rgba(195,185,255,0.07) 0%, transparent 56%)",
+                  background: "radial-gradient(circle, rgba(195,185,255,0.07) 0%, transparent 56%)",
                   filter: "blur(24px)",
                 }}
               />
 
-              {/* THE BUBBLE — overflow-hidden clips all layers to the circle */}
+              {/* THE BUBBLE — overflow-hidden clips all layers */}
               <div className="absolute inset-0 rounded-full overflow-hidden">
 
-                {/* ① backdrop: water refracts & brightens what's behind */}
+                {/* ① backdrop refraction */}
                 <div
                   className="absolute inset-0"
-                  style={{
-                    backdropFilter: "blur(1.5px) brightness(1.05) saturate(1.12)",
-                  }}
+                  style={{ backdropFilter: "blur(1.5px) brightness(1.05) saturate(1.12)" }}
                 />
 
-                {/* ② soap film — nearly transparent center, thicker edge */}
+                {/* ② soap film */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -77,7 +95,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ③ rainbow interference band — slow clockwise */}
+                {/* ③ rainbow interference band */}
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
@@ -88,7 +106,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ④ counter-rotating pastel wash — slower */}
+                {/* ④ counter-rotating pastel wash */}
                 <motion.div
                   animate={{ rotate: -360 }}
                   transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
@@ -99,7 +117,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ⑤ gravity film gradient: thin=blue at top, thicker at bottom */}
+                {/* ⑤ gravity film gradient */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -108,7 +126,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ⑥ horizontal bright band — visible as iridescent arc in flat phase */}
+                {/* ⑥ horizontal bright band */}
                 <div
                   className="absolute"
                   style={{
@@ -119,7 +137,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ⑦ interior frosting for text legibility — centre only */}
+                {/* ⑦ interior frosting */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -128,7 +146,7 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ⑧ inset caustic glow from wall curvature */}
+                {/* ⑧ inset caustic glow */}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -137,67 +155,58 @@ export function MorphBubble() {
                   }}
                 />
 
-                {/* ⑨ primary specular — large soft oval, top-left */}
+                {/* ⑨ primary specular */}
                 <div
                   className="absolute"
                   style={{
-                    width: "28%", height: "17%",
-                    top: "10%", left: "14%",
+                    width: "28%", height: "17%", top: "10%", left: "14%",
                     background:
                       "radial-gradient(ellipse at 38% 32%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.54) 30%, rgba(255,255,255,0) 70%)",
                     filter: "blur(4px)",
                   }}
                 />
 
-                {/* ⑩ sharp core of primary — pinpoint specular */}
+                {/* ⑩ sharp specular core */}
                 <div
                   className="absolute"
                   style={{
-                    width: "7%", height: "4.5%",
-                    top: "11%", left: "19%",
-                    background:
-                      "radial-gradient(ellipse, rgba(255,255,255,1) 0%, transparent 62%)",
+                    width: "7%", height: "4.5%", top: "11%", left: "19%",
+                    background: "radial-gradient(ellipse, rgba(255,255,255,1) 0%, transparent 62%)",
                     filter: "blur(1px)",
                   }}
                 />
 
-                {/* ⑪ secondary specular — opposite side, dimmer */}
+                {/* ⑪ secondary specular */}
                 <div
                   className="absolute"
                   style={{
-                    width: "9%", height: "5.5%",
-                    top: "21%", left: "67%",
-                    background:
-                      "radial-gradient(ellipse, rgba(255,255,255,0.58) 0%, transparent 66%)",
+                    width: "9%", height: "5.5%", top: "21%", left: "67%",
+                    background: "radial-gradient(ellipse, rgba(255,255,255,0.58) 0%, transparent 66%)",
                     filter: "blur(2.5px)",
                   }}
                 />
 
-                {/* ⑫ tiny tertiary glint — depth cue */}
+                {/* ⑫ tertiary glint */}
                 <div
                   className="absolute"
                   style={{
-                    width: "3.5%", height: "2.2%",
-                    top: "63%", left: "22%",
-                    background:
-                      "radial-gradient(ellipse, rgba(255,255,255,0.32) 0%, transparent 68%)",
+                    width: "3.5%", height: "2.2%", top: "63%", left: "22%",
+                    background: "radial-gradient(ellipse, rgba(255,255,255,0.32) 0%, transparent 68%)",
                     filter: "blur(1.5px)",
                   }}
                 />
 
-                {/* ⑬ bottom caustic rim — light focusing through lower wall */}
+                {/* ⑬ bottom caustic rim */}
                 <div
                   className="absolute"
                   style={{
-                    width: "42%", height: "7%",
-                    bottom: "11%", left: "29%",
-                    background:
-                      "radial-gradient(ellipse, rgba(198,214,255,0.10) 0%, transparent 66%)",
+                    width: "42%", height: "7%", bottom: "11%", left: "29%",
+                    background: "radial-gradient(ellipse, rgba(198,214,255,0.10) 0%, transparent 66%)",
                     filter: "blur(5px)",
                   }}
                 />
 
-                {/* ⑭ text */}
+                {/* ⑭ text — appears after memories are absorbed */}
                 <motion.div
                   style={{ opacity: textOpacity, y: textY }}
                   className="absolute inset-0 flex items-center justify-center"
@@ -206,16 +215,52 @@ export function MorphBubble() {
                     className="px-10 text-center text-[1.65rem] font-semibold leading-snug tracking-tight md:text-4xl"
                     style={{ color: "rgba(26,16,54,0.80)" }}
                   >
-                    let us handle<br />the noise.
+                    everything,<br />in one place.
                   </p>
                 </motion.div>
 
-              </div>{/* /bubble overflow-hidden */}
+              </div>{/* /bubble */}
             </div>
           </motion.div>
         </motion.div>
 
+        {/* Floating memories drawn toward the bubble by gravity */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          {floatingMemories.map((mem) => (
+            <FloatingMemory key={mem.text} memory={mem} progress={scrollYProgress} />
+          ))}
+        </div>
+
       </div>
     </section>
+  );
+}
+
+function FloatingMemory({
+  memory,
+  progress,
+}: {
+  memory: (typeof floatingMemories)[number];
+  progress: MotionValue<number>;
+}) {
+  const { driftStart, driftEnd, startX, startY, text } = memory;
+  const appearAt = driftStart - 0.10;
+
+  const opacity = useTransform(
+    progress,
+    [appearAt, appearAt + 0.07, driftEnd - 0.06, driftEnd + 0.02],
+    [0, 0.82, 0.82, 0],
+  );
+  const x     = useTransform(progress, [driftStart, driftEnd], [startX, "0vw"]);
+  const y     = useTransform(progress, [driftStart, driftEnd], [startY, "0vh"]);
+  const scale = useTransform(progress, [driftStart + 0.06, driftEnd], [1, 0.08]);
+
+  return (
+    <motion.div
+      style={{ opacity, x, y, scale, position: "absolute" }}
+      className="text-sm font-medium text-black/65 md:text-base"
+    >
+      {text}
+    </motion.div>
   );
 }
