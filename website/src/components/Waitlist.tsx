@@ -182,7 +182,8 @@ export function Waitlist() {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-gray-900 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50"
+                className="w-full px-6 py-3 font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 text-white"
+                style={{ backgroundColor: "#FF4422" }}
               >
                 {status === "loading" ? "Joining..." : "Get Early Access"}
               </motion.button>
