@@ -1,91 +1,61 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Brain, Mail, Globe, Clock, Workflow, BarChart3, BookOpen, Calendar } from "lucide-react";
 
 const CAPABILITIES = [
-  { id: "memory", label: "Memory", icon: Brain, angle: 0 },
-  { id: "email", label: "Email", icon: Mail, angle: 45 },
-  { id: "research", label: "Research", icon: Globe, angle: 90 },
-  { id: "workflows", label: "Workflows", icon: Workflow, angle: 135 },
-  { id: "automation", label: "Automation", icon: BarChart3, angle: 180 },
-  { id: "learning", label: "Learning", icon: BookOpen, angle: 225 },
-  { id: "planning", label: "Planning", icon: Calendar, angle: 270 },
-  { id: "monitoring", label: "Monitoring", icon: Clock, angle: 315 }
+  {
+    id: "planning", label: "Planning", icon: Calendar, angle: -90,
+    detail: "Schedules meetings, sets reminders, and keeps your calendar in order — without being asked."
+  },
+  {
+    id: "monitoring", label: "Monitoring", icon: Clock, angle: -45,
+    detail: "Watches for price drops, deadlines, and updates. Alerts you before it's too late."
+  },
+  {
+    id: "research", label: "Research", icon: Globe, angle: 0,
+    detail: "Deep-dives any topic, surfaces what matters, and delivers a clean summary."
+  },
+  {
+    id: "workflows", label: "Workflows", icon: Workflow, angle: 45,
+    detail: "Chains multi-step tasks and runs them in the background. You set it once, it handles the rest."
+  },
+  {
+    id: "automation", label: "Automation", icon: BarChart3, angle: 90,
+    detail: "Tracks your goals, spending, and habits. Reports progress without being prompted."
+  },
+  {
+    id: "learning", label: "Learning", icon: BookOpen, angle: 135,
+    detail: "Adapts its tone, pacing, and style uniquely for you the longer you use it."
+  },
+  {
+    id: "memory", label: "Memory", icon: Brain, angle: 180,
+    detail: "3-layer persistent memory that learns, weights context, and refreshes daily."
+  },
+  {
+    id: "email", label: "Email", icon: Mail, angle: -135,
+    detail: "Reads, drafts, and sends emails based on your habits, history, and preferences."
+  },
 ];
 
+const R = 37; // radius as % of container
+const CX = 50;
+const CY = 50;
+
+function toXY(angleDeg: number) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: CX + R * Math.cos(rad), y: CY + R * Math.sin(rad) };
+}
+
 export function CapabilityNetwork() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [hoveredCapability, setHoveredCapability] = useState<string | null>(null);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (canvasRef.current?.parentElement) {
-        const rect = canvasRef.current.parentElement.getBoundingClientRect();
-        setCanvasSize({ width: rect.width, height: Math.max(rect.height, 500) });
-      }
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
-  // Draw connecting lines
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const radius = Math.min(canvasSize.width, canvasSize.height) * 0.25;
-    const centerX = canvasSize.width / 2;
-    const centerY = canvasSize.height / 2;
-
-    ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-    ctx.strokeStyle = `rgba(130, 140, 190, ${hoveredCapability ? 0.55 : 0.3})`;
-    ctx.lineWidth = 1.5;
-
-    // Draw connecting lines
-    CAPABILITIES.forEach((cap, i) => {
-      const nextCap = CAPABILITIES[(i + 1) % CAPABILITIES.length];
-      const angle1 = (cap.angle * Math.PI) / 180;
-      const angle2 = (nextCap.angle * Math.PI) / 180;
-
-      const x1 = centerX + radius * Math.cos(angle1);
-      const y1 = centerY + radius * Math.sin(angle1);
-      const x2 = centerX + radius * Math.cos(angle2);
-      const y2 = centerY + radius * Math.sin(angle2);
-
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-
-      // Draw to center
-      if (hoveredCapability === cap.id) {
-        ctx.strokeStyle = `rgba(91, 134, 229, 0.6)`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(centerX, centerY);
-        ctx.stroke();
-      }
-    });
-  }, [canvasSize, hoveredCapability]);
-
-  const radius = Math.min(canvasSize.width, canvasSize.height) * 0.25;
-  const centerX = canvasSize.width / 2;
-  const centerY = canvasSize.height / 2;
+  const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section className="py-32 px-4 relative z-10 overflow-hidden">
+    <section className="py-32 px-4 relative z-10">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.h2 
+        <div className="text-center mb-20">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -93,7 +63,7 @@ export function CapabilityNetwork() {
           >
             One System. Many Superpowers.
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -104,83 +74,131 @@ export function CapabilityNetwork() {
           </motion.p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto" style={{ height: Math.max(canvasSize.width * 0.8, 500) }}>
-          {/* Canvas for drawing lines */}
-          <canvas
-            ref={canvasRef}
-            width={canvasSize.width}
-            height={Math.max(canvasSize.width * 0.8, 500)}
-            className="absolute inset-0 w-full"
-          />
+        {/* Network diagram */}
+        <div
+          className="relative mx-auto"
+          style={{ maxWidth: 720, width: "100%", aspectRatio: "1 / 1" }}
+        >
+          {/* SVG connector lines */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {/* Octagon outline */}
+            <polygon
+              points={CAPABILITIES.map(c => {
+                const { x, y } = toXY(c.angle);
+                return `${x},${y}`;
+              }).join(" ")}
+              fill="none"
+              stroke="rgba(120, 130, 180, 0.35)"
+              strokeWidth="0.35"
+            />
+            {/* Line from center to hovered node */}
+            {CAPABILITIES.map(c => {
+              if (c.id !== hovered) return null;
+              const { x, y } = toXY(c.angle);
+              return (
+                <line
+                  key={c.id}
+                  x1={CX} y1={CY}
+                  x2={x} y2={y}
+                  stroke="rgba(91, 134, 229, 0.65)"
+                  strokeWidth="0.5"
+                  strokeDasharray="1.5 1"
+                />
+              );
+            })}
+          </svg>
 
-          {/* Center Node */}
+          {/* Center node */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+            className="absolute glass-card rounded-full flex items-center justify-center"
             style={{
-              width: 80,
-              height: 80,
+              left: "50%", top: "50%",
+              width: "11%", height: "11%",
+              transform: "translate(-50%, -50%)",
             }}
           >
-            <div className="w-full h-full rounded-full glass-card flex items-center justify-center border-white/40">
-              <Brain className="w-8 h-8 text-gray-700" />
-            </div>
+            <Brain className="text-gray-700" style={{ width: "45%", height: "45%" }} />
           </motion.div>
 
-          {/* Capability Nodes */}
+          {/* Capability nodes */}
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
-            const angle = (cap.angle * Math.PI) / 180;
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-            const isHovered = hoveredCapability === cap.id;
+            const { x, y } = toXY(cap.angle);
+            const isHovered = hovered === cap.id;
+            const isBottom = y > 55;
+            const isRight = x > 65;
+            const isLeft = x < 35;
 
             return (
-              <motion.button
+              <motion.div
                 key={cap.id}
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.05 }}
-                onMouseEnter={() => setHoveredCapability(cap.id)}
-                onMouseLeave={() => setHoveredCapability(null)}
-                className="absolute group"
+                transition={{ delay: 0.05 + i * 0.07, type: "spring", stiffness: 220 }}
+                className="absolute"
                 style={{
-                  left: `${(x / canvasSize.width) * 100}%`,
-                  top: `${(y / (Math.max(canvasSize.width * 0.8, 500))) * 100}%`,
-                  transform: "translate(-50%, -50%)"
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  transform: "translate(-50%, -50%)",
                 }}
+                onMouseEnter={() => setHovered(cap.id)}
+                onMouseLeave={() => setHovered(null)}
               >
                 <motion.div
-                  whileHover={{ scale: 1.15 }}
-                  className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isHovered 
-                      ? "glass-card border-white/60 shadow-lg" 
-                      : "glass hover:border-white/50"
+                  whileHover={{ scale: 1.18 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className={`rounded-full flex items-center justify-center cursor-pointer transition-shadow duration-200 ${
+                    isHovered ? "glass-card shadow-xl" : "glass"
                   }`}
+                  style={{ width: "clamp(52px, 9vw, 80px)", height: "clamp(52px, 9vw, 80px)" }}
                 >
-                  <Icon className={`w-6 h-6 ${isHovered ? "text-gray-900" : "text-gray-700"}`} />
+                  <Icon
+                    className={isHovered ? "text-gray-900" : "text-gray-600"}
+                    style={{ width: "36%", height: "36%" }}
+                  />
                 </motion.div>
-                
-                {/* Tooltip */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute bottom-full -left-8 mb-4 px-3 py-1.5 rounded-lg glass-card whitespace-nowrap text-sm font-medium text-gray-900 pointer-events-none"
-                >
-                  {cap.label}
-                </motion.div>
-              </motion.button>
+
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.88, y: isBottom ? -6 : 6 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.88 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute z-30 glass-card rounded-2xl p-3 pointer-events-none"
+                      style={{
+                        width: 190,
+                        ...(isBottom
+                          ? { bottom: "calc(100% + 10px)" }
+                          : { top: "calc(100% + 10px)" }),
+                        ...(isRight
+                          ? { right: 0 }
+                          : isLeft
+                          ? { left: 0 }
+                          : { left: "50%", transform: "translateX(-50%)" }),
+                      }}
+                    >
+                      <p className="text-xs font-bold text-gray-900 mb-1">{cap.label}</p>
+                      <p className="text-xs text-gray-600 leading-relaxed">{cap.detail}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-600 text-base">Hover over each capability to see how they connect</p>
+        <div className="text-center mt-10">
+          <p className="text-sm text-gray-500">Hover over each capability to learn more</p>
         </div>
       </div>
     </section>
