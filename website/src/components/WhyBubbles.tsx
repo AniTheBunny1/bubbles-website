@@ -2,68 +2,76 @@
 
 import { motion } from "framer-motion";
 
-const FEATURES = [
-  {
-    title: "The Personality",
-    description: "Turns utility into affinity. A relationship-based moat.",
-    color: "from-blue-400 to-indigo-400"
-  },
-  {
-    title: "The Agent",
-    description: "Browser-native execution. Bypasses gatekeepers.",
-    color: "from-pink-400 to-rose-400"
-  }
-];
-
 export function WhyBubbles() {
   return (
-    <section id="how-it-works" className="py-32 px-4 relative z-10">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-20">
-          <motion.h2 
+    <section className="py-32 px-4 relative z-10 overflow-hidden">
+      <div className="max-w-4xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="glass-card rounded-3xl p-12 md:p-16 text-center"
+        >
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
+            className="text-5xl md:text-6xl font-bold tracking-tight mb-8 text-black"
           >
-            The Digital Accomplice.
+            Why Bubbles?
           </motion.h2>
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-gray-500 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6"
           >
-            A decentralized, personality-driven multimodal interface that replaces 50+ fragmented apps with a single, sharp-tongued conversation.
+            Most assistants are just glorified chat boxes that watch you drown in suggestions.
           </motion.p>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {FEATURES.map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="glass-card p-12 rounded-[2rem] relative overflow-hidden group text-center"
-            >
-              {/* Floating Orb Icon */}
-              <div className="w-20 h-20 mb-8 relative mx-auto">
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-full blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
-                <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-full border border-white/60 shadow-inner" />
-                <div className={`absolute inset-2 bg-gradient-to-tr ${feature.color} rounded-full opacity-50 mix-blend-multiply`} />
-              </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-gray-900 font-semibold leading-relaxed mb-6"
+          >
+            Bubbles eats your boring tasks, automates the friction, and sells you back your own time.
+          </motion.p>
 
-              <h3 className="text-3xl font-semibold mb-4 tracking-tight">{feature.title}</h3>
-              <p className="text-gray-500 text-lg leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.25 }}
+            className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8"
+          >
+            It doesn't just comment on your life. It acts.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="h-1 w-16 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mb-8"
+          />
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="text-lg text-gray-500 leading-relaxed"
+          >
+            We're building the Personal Intelligence Layer for Life.
+            <br className="hidden md:block" />
+            Two student founders, bootstrapped, shipping from India.
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );

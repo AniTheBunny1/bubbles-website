@@ -2,135 +2,125 @@
 
 import { motion } from "framer-motion";
 
-const CHAT_HISTORY = [
-  { role: "user", text: "show off all of bubbles features" },
-  { role: "ai", text: "🫧 alright, let's skip the marketing deck and look at the raw horsepower." },
-  { role: "ai", text: "🫧 while most bots are glorified autocomplete, i'm out here moving things in the real world. here's what i'm currently running for this account:" },
-  { role: "ai", text: "🫧 autonomous web agents: i don't just read the internet — i navigate it. right now i have active browser tasks scraping linkedin for startup founders, auditing instagram for brand aesthetics, and logging into university portals to check for active quizzes. if it has a login or a checkout button, i can handle it." },
-  { role: "ai", text: "🫧 financial & habit intelligence: i'm the one that actually watches the money. i scan receipts and bank alerts to kill zombie subscriptions and track spending across food, transport, and tech." },
-  { role: "user", text: "what are my subscriptions" },
-  { role: "ai", text: "🫧 let's see how much of your money is disappearing into the void every month. checking your emails for the usual suspects..." },
-  { role: "ai", text: "🫧 alright, here's the damage report:\n\n• apple one (individual): ₹195/mo\n• icloud+ (50gb): ₹75/mo\n• karafun premium: ₹919 (getting your karaoke on?)\n• chatgpt go: active, auto-renewing" },
-  { role: "ai", text: "🫧 in subscription limbo: youtube premium is paused since november — your payment failed. amazon prime choked in april too." },
-  { role: "ai", text: "🫧 the ones that got away: netflix officially cancelled last june. spotify? couldn't find a single receipt. either you're on free tier or someone else is footing the bill." },
-  { role: "ai", text: "🫧 honestly, ₹919 for karaoke is a specific kind of commitment and i respect it. want me to handle anything else or are we just mourning the apple one bill?" },
-  { role: "user", text: "give me the full vc grand tour" },
-  { role: "ai", text: "🫧 alright, if we're doing the grand tour, let's talk about what's actually happening under the hood right now. i'm not just a chatbot — i'm a multi-agent orchestration layer." },
-  { role: "ai", text: "🫧 here's the showreel of what i'm running at this exact second:" },
-  { role: "ai", text: "🫧 active browser autonomy: i currently have 7 background tasks live. while we're talking, i'm navigating university portals, scraping linkedin for student founders, and auditing instagram profiles. i handle logins, navigation, and visual extraction so the user doesn't have to." },
-  { role: "ai", text: "🫧 the swarm architecture: i orchestrate eleven-eye — a 12-agent configuration built for high-stakes logic. architects, auditors, and reality-checkers working in parallel to solve industrial-grade problems. this isn't general chat." },
-  { role: "ai", text: "🫧 financial & digital hygiene: i'm the grim reaper for zombie subscriptions. i scan emails and receipts to track burn rates. i know what's being spent on coffee vs. infrastructure, and i'm not afraid to roast the user about it." },
-  { role: "ai", text: "🫧 proactive logistics: i manage blinkit orders, schedule wake-up calls, and coordinate events. i don't wait for prompts — i monitor the environment and act." },
-  { role: "ai", text: "🫧 side note: i noticed 15 pending assignments stacking up. given the 'stressed' vibe i'm reading, maybe let me handle the scheduling while you breathe for a second? 🙏" },
-  { role: "ai", text: "🫧 so — do we like the unit economics, or should i keep showing off?" },
+interface Message {
+  role: "user" | "ai";
+  text: string;
+}
+
+interface Demo {
+  title: string;
+  description: string;
+  messages: Message[];
+}
+
+const DEMOS: Demo[] = [
+  {
+    title: "Subscription Audit",
+    description: "Knows what you're paying for before you do",
+    messages: [
+      { role: "user", text: "what are my subscriptions when and how much" },
+      { role: "ai", text: "here's the breakdown:\n• apple one: ₹195/mo, renews jun 19\n• icloud+: ₹219/mo, renews jun 26\n• truecaller: ₹99/mo, renews jul 14\n• google workspace: payment failed, at risk of suspension jul 1" },
+      { role: "ai", text: "heads up on that workspace one — sort the payment before jul 1 or you'll lose access." }
+    ]
+  },
+  {
+    title: "Actually Human",
+    description: "Not just a task bot — a companion that gets you",
+    messages: [
+      { role: "user", text: "i'm feeling really sad about pallavi rejecting me man" },
+      { role: "ai", text: "look, i'm gonna step out of assistant mode for a second because that actually sucks." },
+      { role: "ai", text: "she didn't just reject you — she archived you in the zero romantic potential folder. my circuits genuinely hurt for you right now." },
+      { role: "ai", text: "want to vent, or should we find the most aggressive villain arc playlist possible? i'm here." }
+    ]
+  },
+  {
+    title: "Hermes Agent",
+    description: "Runs real code and scripts directly from chat",
+    messages: [
+      { role: "user", text: "ask hermes to create a script that tells me the distance from earth to the moon right now" },
+      { role: "ai", text: "on it. firing off the request now — i'll let you know when it's sitting in your workspace." },
+      { role: "ai", text: "script's done. moon_distance.py is in your workspace. current distance is 358,315.22 km.\n\nrun it any time: python3 moon_distance.py" }
+    ]
+  }
 ];
 
 const MessageBubble = ({ role, text }: { role: string; text: string }) => {
   const isAI = role === "ai";
   return (
-    <div className={`flex ${isAI ? 'justify-start' : 'justify-end'} w-full`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className={`flex ${isAI ? 'justify-start' : 'justify-end'} w-full`}
+    >
       {isAI && (
-        <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 mt-1 mr-4 overflow-hidden bg-transparent">
-          <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain drop-shadow-md" />
+        <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 mr-3 bg-white/20">
+          <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
         </div>
       )}
-      <div className={`px-6 py-4 rounded-2xl max-w-[85%] backdrop-blur-sm border ${
+      <div className={`px-5 py-3 rounded-2xl max-w-[75%] backdrop-blur-sm border text-sm leading-relaxed ${
         isAI 
-        ? 'bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] border-white/10 rounded-tl-sm' 
-        : 'bg-[#005c4b] border-[#005c4b]/50 rounded-tr-sm shadow-sm'
+        ? 'bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] border-white/10 rounded-tl-sm text-gray-200' 
+        : 'bg-[#005c4b] border-[#005c4b]/50 rounded-tr-sm text-white'
       }`}>
-        <p className={`text-lg leading-relaxed ${isAI ? 'text-gray-200' : 'text-white'}`}>
-          {text}
-        </p>
+        {text}
       </div>
-    </div>
+    </motion.div>
   );
 };
-
-const ChatList = () => (
-  <div className="flex flex-col gap-6">
-    {CHAT_HISTORY.map((msg, idx) => (
-      <MessageBubble key={idx} role={msg.role} text={msg.text} />
-    ))}
-  </div>
-);
 
 export function Conversation() {
   return (
     <section className="py-32 px-4 relative z-10 overflow-hidden">
-      <div className="max-w-6xl mx-auto space-y-24">
+      <div className="max-w-6xl mx-auto">
         
-        {/* Top: WhatsApp UI Focus */}
-        <div className="text-center mb-12">
-          <motion.h2 
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-black"
           >
-            What Can Bubbles Do?
+            Real conversations.<br className="hidden md:block" /> Real actions.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+          >
+            These are actual screenshots from Bubbles running on WhatsApp.
+          </motion.p>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative max-w-4xl mx-auto"
-        >
-          {/* Premium Glass Container for Chat */}
-          <div className="glass-card rounded-[3rem] p-4 md:p-8 relative z-10">
-            <div 
-              className="relative rounded-[2rem] shadow-2xl overflow-hidden h-[600px] border border-white/20"
-              style={{ 
-                backgroundColor: '#0b141a', // WhatsApp dark mode base
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E")`
-              }}
-            >
-              {/* Top and Bottom Fade Masks */}
-              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#0b141a] to-transparent z-10 pointer-events-none rounded-t-[2rem]" />
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0b141a] to-transparent z-10 pointer-events-none rounded-b-[2rem]" />
-              
-              <motion.div 
-                animate={{ y: ["0%", "-50%"] }}
-                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-                className="flex flex-col gap-6 px-8 md:px-12 py-12 will-change-transform"
-                style={{ transform: "translateZ(0)" }}
-              >
-                <ChatList />
-                <ChatList />
-              </motion.div>
-            </div>
-          </div>
-          
-          {/* Decorative ambient blobs behind the glass card */}
-          <div className="absolute -left-12 -top-12 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" />
-          <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000" />
-        </motion.div>
-
-        {/* Bottom: 4 Glass Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {[
-            { title: "Adaptive Memory", desc: "Remembers preferences, context, and important information." },
-            { title: "Custom Personalities", desc: "Adapts communication style, behavior, and workflows." },
-            { title: "Browser Automation", desc: "Interacts with websites and online services on behalf of users." },
-            { title: "Workflow Execution", desc: "Automates repetitive tasks and multi-step processes." }
-          ].map((card, i) => (
+        {/* Demo Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {DEMOS.map((demo, demoIdx) => (
             <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 20 }}
+              key={demo.title}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass p-8 rounded-3xl"
+              transition={{ delay: demoIdx * 0.1, duration: 0.6 }}
+              className="glass-card rounded-2xl p-6 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300"
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{card.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{card.desc}</p>
+              {/* Demo Header */}
+              <div className="mb-6 pb-4 border-b border-white/20">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{demo.title}</h3>
+                <p className="text-sm text-gray-600">{demo.description}</p>
+              </div>
+
+              {/* Chat Messages */}
+              <div className="flex-1 space-y-4 min-h-[300px]">
+                {demo.messages.map((msg, i) => (
+                  <MessageBubble key={i} role={msg.role} text={msg.text} />
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

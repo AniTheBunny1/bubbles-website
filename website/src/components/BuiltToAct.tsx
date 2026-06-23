@@ -7,29 +7,38 @@ export function BuiltToAct() {
     <section className="py-32 px-4 relative z-10 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-black"
           >
-            Built to Act, Not Just Chat
+            Under the hood
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+          >
+            Three systems that make Bubbles different from every AI you've tried.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {[
-            { 
-              title: "Understands Context", 
-              desc: "Retains relevant information across interactions." 
+            {
+              title: "3-Layer Persistent Memory",
+              desc: "Continuously learns, updates, and retrieves context. Assigns weights to what matters. Refreshes daily."
             },
-            { 
-              title: "Takes Action", 
-              desc: "Completes tasks instead of simply suggesting them." 
+            {
+              title: "Adaptive Personality Engine",
+              desc: "Evolves its communication style, sentence structure, and tone uniquely for every user."
             },
-            { 
-              title: "Adapts Over Time", 
-              desc: "Becomes increasingly personalized through continued use." 
+            {
+              title: "Hermes Agent Framework",
+              desc: "Executes complex workflows, manages tools, runs scripts, and navigates the web on your behalf."
             }
           ].map((card, i) => (
             <motion.div
@@ -38,7 +47,8 @@ export function BuiltToAct() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass p-8 rounded-3xl relative overflow-hidden group"
+              whileHover={{ y: -5 }}
+              className="glass-card p-8 rounded-2xl relative overflow-hidden group"
             >
               {/* Subtle glass hover highlight */}
               <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
