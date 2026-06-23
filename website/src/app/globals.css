@@ -17,16 +17,31 @@
   --color-secondary: var(--text-secondary);
 }
 
-html, body {
-  min-height: 100vh;
+html {
   background-color: #ede8f5;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28)),
-    url('/bg-clouds.png');
-  background-position: center top, center top;
-  background-size: cover, cover;
-  background-repeat: no-repeat, no-repeat;
-  background-attachment: scroll, scroll;
+  min-height: 100%;
+  position: relative;
+}
+
+/* Full-page background via fixed pseudo-element.
+   background-attachment:fixed is broken on iOS Safari — this approach works everywhere. */
+html::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.26)),
+    url('/bg-clouds.png') center center / cover no-repeat;
+}
+
+/* Desktop: let background scroll with the page */
+@media (min-width: 768px) {
+  html::before {
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+  }
 }
 
 body {
