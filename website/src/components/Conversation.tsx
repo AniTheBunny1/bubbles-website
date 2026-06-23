@@ -10,48 +10,48 @@ interface Message {
 }
 
 const MESSAGES: Message[] = [
-  // Grocery — proof of delivery
+  // Grocery: proof of delivery
   { role: "user", text: "add 2 thums up 750 ml bottles to the cart and deliver them to the minerva heights address. cash on delivery" },
-  { role: "ai", text: "on it. adding those thums up to your cart on blinkit now and setting it for minerva heights. i'll let you know the second it's ready." },
-  { role: "ai", text: "sorted. two 750ml bottles, minerva heights address, cash on delivery. should be there in about 8 minutes." },
+  { role: "ai", text: "two thums ups, minerva heights, cash on delivery. adding to cart now." },
+  { role: "ai", text: "sorted. eight minutes. i'd start making fridge space." },
   { role: "user", text: "it came bubbles", image: "/thums-up-delivery.jpg" },
   { role: "ai", text: "told you. anything else?" },
 
-  // Meeting prep — memory use case
+  // Meeting prep: memory use case
   { role: "user", text: "i have a meeting with gaurav in 10 minutes, what do I know about him?" },
-  { role: "ai", text: "from memory: gaurav runs a D2C skincare brand. you spoke 3 weeks ago, he was interested in a distribution collab. prefers short calls, hates small talk." },
-  { role: "ai", text: "you mentioned wanting to pitch him a rev-share model. want me to pull your notes from last time?" },
+  { role: "ai", text: "from memory: gaurav runs a D2C skincare brand. last spoke 3 weeks ago, interested in a distribution collab. short calls only, hates small talk." },
+  { role: "ai", text: "you had a rev-share pitch in mind. want me to pull your notes so you walk in sharp?" },
 
   // Subscriptions
   { role: "user", text: "what are my subscriptions when and how much" },
-  { role: "ai", text: "here's the breakdown:\n• apple one: ₹195/mo, renews jun 19\n• icloud+: ₹219/mo, renews jun 26\n• truecaller: ₹99/mo, renews jul 14\n• google workspace: payment failed, service at risk jul 1" },
-  { role: "ai", text: "heads up on that workspace one. sort the payment before jul 1 or you lose access." },
+  { role: "ai", text: "here's the damage:\n• apple one: ₹195/mo, renews jun 19\n• icloud+: ₹219/mo, renews jun 26\n• truecaller: ₹99/mo, renews jul 14\n• google workspace: payment failed, at risk jul 1" },
+  { role: "ai", text: "that workspace one is actively a problem. fix the payment before jul 1 or google pulls the plug on you." },
 
-  // Flights — confirmation required
+  // Flights: confirmation required
   { role: "user", text: "find me flights to bali next month, early morning if possible" },
-  { role: "ai", text: "found 4 options. best match: indigo 6:15 am on jun 15, ₹12,800, direct. want me to go ahead and book it?" },
+  { role: "ai", text: "found 4 options. top pick: indigo 6:15am jun 15, ₹12,800, nonstop. want me to pull the trigger?" },
   { role: "user", text: "yes go ahead" },
-  { role: "ai", text: "booked. seat 12a locked in. confirmation heading to your email now." },
+  { role: "ai", text: "done. seat 12a is yours. confirmation flying to your inbox right now." },
 
   // Email cleanup
   { role: "user", text: "clean up my newsletter subscriptions" },
-  { role: "ai", text: "scanning inbox. found 23 active subscriptions, 7 dormant (not opened in 2+ months)." },
-  { role: "ai", text: "cancelled the 7 dead ones. you'll save ₹2,145/month. all unsubscribe confirmations sent." },
+  { role: "ai", text: "scanning inbox. 23 active subscriptions, 7 ghosts (not opened in 2+ months)." },
+  { role: "ai", text: "killed the 7 dead ones. you just saved ₹2,145/month. you're welcome." },
 
   // Reminder
   { role: "user", text: "remind me to call mom on sunday morning" },
-  { role: "ai", text: "done. nudging you sunday at 10am. want me to add anything to remind you to say?" },
+  { role: "ai", text: "done. hitting you sunday at 10am. want a little nudge on what to say so it doesn't get awkward?" },
 
   // Emotional support
   { role: "user", text: "i'm feeling really sad about pallavi rejecting me man" },
-  { role: "ai", text: "look, i'm gonna step out of assistant mode for a second because that actually sucks." },
-  { role: "ai", text: "she didn't just reject you, she archived you in the zero romantic potential folder. my circuits genuinely hurt for you right now." },
-  { role: "ai", text: "want to vent, or should we find the most aggressive villain arc playlist possible? i'm here." },
+  { role: "ai", text: "stepping out of assistant mode for a sec because that genuinely sucks." },
+  { role: "ai", text: "she didn't just reject you, she put you in the zero romantic potential folder and hit archive. that's a specific kind of awful." },
+  { role: "ai", text: "want to vent into the void, or should we pull up the most unhinged villain arc playlist we can find? i'm here either way." },
 
   // Script execution
   { role: "user", text: "ask hermes to create a script that tells me the distance from earth to the moon right now" },
-  { role: "ai", text: "on it. firing off the request now. i'll let you know when it's in your workspace." },
-  { role: "ai", text: "script's done. moon_distance.py is ready. current distance: 358,315.22 km.\n\nrun it any time with python3 moon_distance.py" },
+  { role: "ai", text: "sending the request to hermes now." },
+  { role: "ai", text: "done. moon_distance.py is sitting in your workspace. current distance: 358,315.22 km.\n\npython3 moon_distance.py any time." },
 ];
 
 const MessageBubble = ({ role, text, image }: Message) => {

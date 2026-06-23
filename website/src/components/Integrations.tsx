@@ -16,7 +16,7 @@ const GROUPS = [
       { emoji: "🗺️", name: "Maps" },
     ],
     userMsg: "Order me 2 Thums Up from Blinkit",
-    aiMsg: "Done! Order placed. Arriving in ~12 mins. Total: ₹78.",
+    aiMsg: "order placed. two chilled thums ups, arriving in 12 mins. ₹78 cash ready.",
   },
   {
     title: "Work",
@@ -31,7 +31,7 @@ const GROUPS = [
       { emoji: "📅", name: "Calendar" },
     ],
     userMsg: "Summarize my unread Slack messages",
-    aiMsg: "3 things need you: Priya asked about the deck, Rahul pinged on the API bug, and there's a standup in 20 mins.",
+    aiMsg: "three things: Priya needs the deck, Rahul's poking about the API bug, standup in 20. pick your battles.",
   },
   {
     title: "Manipal students",
@@ -46,7 +46,7 @@ const GROUPS = [
       { emoji: "📅", name: "Calendar" },
     ],
     userMsg: "Do I have any submissions due this week?",
-    aiMsg: "Yes — DSA assignment due Thursday, and a quiz Friday at 9am. Want me to block study time on your calendar?",
+    aiMsg: "yep. DSA assignment due Thursday, quiz Friday at 9am. want me to block some panic study time or are you feeling brave?",
   },
 ];
 
@@ -71,7 +71,7 @@ export function Integrations() {
             transition={{ delay: 0.1 }}
             className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            Swiggy orders, Slack messages, Manipal assignments — all from WhatsApp. No app switching.
+            Swiggy orders, Slack messages, Manipal assignments. All from WhatsApp. No app switching.
           </motion.p>
         </div>
 
