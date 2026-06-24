@@ -29,7 +29,7 @@ html::before {
   z-index: -1;
   background:
     linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)),
-    url("/bg-clouds.png") center center / cover no-repeat;
+    url("/bg-clouds.webp") center center / cover no-repeat;
 }
 
 body {

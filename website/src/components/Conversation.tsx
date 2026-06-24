@@ -14,7 +14,7 @@ const MESSAGES: Message[] = [
   { role: "user", text: "add 2 thums up 750 ml bottles to the cart and deliver them to the minerva heights address. cash on delivery" },
   { role: "ai",   text: "two thums ups, minerva heights, cash on delivery. adding to cart now." },
   { role: "ai",   text: "sorted. eight minutes. i'd start making fridge space." },
-  { role: "user", text: "it came bubbles", image: "/thums-up-delivery.jpg" },
+  { role: "user", text: "it came bubbles", image: "/thums-up-delivery.webp" },
   { role: "ai",   text: "told you." },
 
   // Amazon + UPI
@@ -168,7 +168,7 @@ export function Conversation() {
           }}
         >
           <img
-            src="/Subject.png"
+            src="/Subject.webp"
             alt=""
             className="relative z-20 block h-auto w-full pointer-events-none"
           />
@@ -189,7 +189,7 @@ export function Conversation() {
               style={{ backgroundColor: "#1f2c34", paddingTop: "max(16px, 9%)" }}
             >
               <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-white/10 flex items-center justify-center">
-                <img src="/logo.png" alt="Bubbles" className="w-full h-full object-contain" />
+                <img src="/logo.webp" alt="Bubbles" className="w-full h-full object-contain" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-white leading-none">Bubbles</p>

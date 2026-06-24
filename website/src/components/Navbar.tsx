@@ -14,7 +14,7 @@ export function Navbar() {
       <a href="https://www.instagram.com/hemslabs/" target="_blank" rel="noopener noreferrer">
         <motion.img
           whileHover={{ scale: 1.05 }}
-          src="/hems-logo.png"
+          src="/hems-logo.webp"
           alt="Hems Logo"
           className="h-32 md:h-40 w-auto object-contain cursor-pointer"
         />
