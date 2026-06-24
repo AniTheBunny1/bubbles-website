@@ -17,7 +17,7 @@ const bubbles = [
 ];
 
 /* ── Layer 5: sparkle particles ──────────────────────────────── */
-const sparkles = Array.from({ length: 44 }, (_, i) => ({
+const sparkles = Array.from({ length: 20 }, (_, i) => ({
   left:  `${(i * 37) % 100}%`,
   top:   `${(i * 61) % 100}%`,
   delay: `${(i % 9) * 0.45}s`,
@@ -41,7 +41,7 @@ const cloudsMid = [
 ];
 
 /* ── Layer 6: micro bubbles — tiny, barely there ─────────────── */
-const microBubbles = Array.from({ length: 24 }, (_, i) => ({
+const microBubbles = Array.from({ length: 10 }, (_, i) => ({
   left:    `${(i * 43 + 7) % 100}%`,
   top:     `${(i * 67 + 13) % 100}%`,
   size:    2 + (i % 5) * 1.4,
@@ -108,7 +108,7 @@ export function ParallaxAtmosphere() {
               left:   c.left,
               top:    c.top,
               background: `radial-gradient(ellipse, ${c.color} 0%, transparent 68%)`,
-              filter: "blur(48px)",
+              filter: "blur(28px)",
               animationDelay: c.dur,
             }}
           />
@@ -116,7 +116,7 @@ export function ParallaxAtmosphere() {
       </motion.div>
 
       {/* ── Layer 2: mid-distance pastel blobs ───────────────────── */}
-      <motion.div style={{ y: cloudMidY }} className="absolute inset-0">
+      <motion.div style={{ y: cloudMidY }} className="absolute inset-0 hidden md:block">
         {cloudsMid.map((c, i) => (
           <div
             key={i}
@@ -127,7 +127,7 @@ export function ParallaxAtmosphere() {
               left:   c.left,
               top:    c.top,
               background: `radial-gradient(ellipse, ${c.color} 0%, transparent 62%)`,
-              filter: "blur(64px)",
+              filter: "blur(32px)",
               animationDelay: c.dur,
             }}
           />
@@ -135,14 +135,14 @@ export function ParallaxAtmosphere() {
       </motion.div>
 
       {/* ── Layer 3: iridescent refraction band ──────────────────── */}
-      <motion.div style={{ y: iridY }} className="absolute inset-0 flex items-center justify-center">
+      <motion.div style={{ y: iridY }} className="absolute inset-0 hidden md:flex items-center justify-center">
         <div
           className="iridescent-animation"
           style={{
             width:  "140%",
             height: "340px",
             background: "conic-gradient(from 0deg at 50% 50%, rgba(255,210,230,0.07), rgba(200,220,255,0.09), rgba(180,255,230,0.06), rgba(255,245,200,0.07), rgba(220,200,255,0.08), rgba(255,210,230,0.07))",
-            filter: "blur(40px)",
+            filter: "blur(26px)",
             transform: "rotate(-8deg)",
           }}
         />
@@ -184,7 +184,7 @@ export function ParallaxAtmosphere() {
       </motion.div>
 
       {/* ── Layer 6: micro bubbles — almost invisible ─────────────── */}
-      <motion.div style={{ y: microY }} className="absolute inset-0">
+      <motion.div style={{ y: microY }} className="absolute inset-0 hidden md:block">
         {microBubbles.map((b, i) => (
           <span
             key={i}
@@ -202,7 +202,7 @@ export function ParallaxAtmosphere() {
       </motion.div>
 
       {/* ── Layer 7: refraction streaks ──────────────────────────── */}
-      <motion.div style={{ y: streakY }} className="absolute inset-0">
+      <motion.div style={{ y: streakY }} className="absolute inset-0 hidden md:block">
         {refractionStreaks.map((s, i) => (
           <div
             key={i}
@@ -242,7 +242,7 @@ export function ParallaxAtmosphere() {
       </motion.div>
 
       {/* ── Layer 9: bokeh circles — soft out-of-focus rings ─────── */}
-      <motion.div style={{ y: bubbleY }} className="absolute inset-0">
+      <motion.div style={{ y: bubbleY }} className="absolute inset-0 hidden md:block">
         {bokehCircles.map((b, i) => (
           <div
             key={i}
