@@ -164,10 +164,8 @@ function MemoryFragment({
             style={{
               inset: "-14px -22px",
               clipPath: shape,
-              background: "rgba(240, 244, 255, 0.05)",
-              backdropFilter: "blur(5px) saturate(1.1) brightness(1.02)",
-              WebkitBackdropFilter: "blur(5px) saturate(1.1) brightness(1.02)",
-              boxShadow: "inset 0 0 0 0.5px rgba(200, 215, 255, 0.32)",
+              background: "rgba(238, 242, 255, 0.07)",
+              boxShadow: "inset 0 0 0 0.5px rgba(200, 215, 255, 0.36), 0 2px 10px rgba(190, 205, 255, 0.06)",
             }}
           />
           {/* iridescent edge shimmer */}
