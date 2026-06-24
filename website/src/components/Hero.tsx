@@ -56,48 +56,6 @@ export function Hero() {
             filter: "blur(28px)",
           }}
         />
-
-        {/* iridescent edge ring — masked to perimeter, rotating + shimmering */}
-        <motion.div
-          animate={{
-            rotate: 360,
-            opacity: [0.48, 0.92, 0.62, 0.88, 0.48],
-          }}
-          transition={{
-            rotate: { duration: 12, repeat: Infinity, ease: "linear" },
-            opacity: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className="absolute pointer-events-none"
-          style={{
-            inset: "-3px",
-            borderRadius: "50%",
-            background:
-              "conic-gradient(from 0deg, rgba(255,100,158,0.95), rgba(255,210,65,0.90), rgba(65,250,180,0.88), rgba(65,148,255,0.92), rgba(188,65,255,0.90), rgba(255,100,158,0.95))",
-            WebkitMask:
-              "radial-gradient(circle at center, transparent calc(100% - 5px), white calc(100% - 4px), white 100%)",
-            mask:
-              "radial-gradient(circle at center, transparent calc(100% - 5px), white calc(100% - 4px), white 100%)",
-            filter: "blur(2.5px)",
-          }}
-        />
-
-        {/* caustic arc — bright crescent that sweeps the edge like sun on a dewdrop */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute pointer-events-none"
-          style={{
-            inset: "-3px",
-            borderRadius: "50%",
-            background:
-              "conic-gradient(from 248deg, transparent 0%, rgba(255,255,255,0.95) 4%, rgba(255,248,215,0.60) 13%, transparent 22%, transparent 100%)",
-            WebkitMask:
-              "radial-gradient(circle at center, transparent calc(100% - 6px), white calc(100% - 4px), white 100%)",
-            mask:
-              "radial-gradient(circle at center, transparent calc(100% - 6px), white calc(100% - 4px), white 100%)",
-            filter: "blur(1.8px)",
-          }}
-        />
         <motion.div
           animate={{ y: [-8, 8, -8], scale: [1, 1.03, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
@@ -123,6 +81,48 @@ export function Hero() {
             className="absolute inset-10 rounded-full bg-[radial-gradient(circle_at_40%_45%,rgba(255,255,255,.32),transparent_54%)]"
           />
         </motion.div>
+
+        {/* iridescent edge ring — on top of the circle, masked to perimeter only */}
+        <motion.div
+          animate={{
+            rotate: 360,
+            opacity: [0.55, 1.0, 0.65, 0.95, 0.55],
+          }}
+          transition={{
+            rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+            opacity: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className="absolute pointer-events-none"
+          style={{
+            inset: "-10px",
+            borderRadius: "50%",
+            background:
+              "conic-gradient(from 0deg, rgba(255,100,158,1), rgba(255,215,65,0.95), rgba(65,250,185,0.92), rgba(65,148,255,1), rgba(190,65,255,0.95), rgba(255,100,158,1))",
+            WebkitMask:
+              "radial-gradient(circle at center, transparent calc(100% - 12px), white calc(100% - 10px), white 100%)",
+            mask:
+              "radial-gradient(circle at center, transparent calc(100% - 12px), white calc(100% - 10px), white 100%)",
+            filter: "blur(4px)",
+          }}
+        />
+
+        {/* caustic arc — bright crescent sweeping the edge like sun catching a dewdrop */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute pointer-events-none"
+          style={{
+            inset: "-10px",
+            borderRadius: "50%",
+            background:
+              "conic-gradient(from 248deg, transparent 0%, rgba(255,255,255,1) 5%, rgba(255,248,220,0.70) 14%, transparent 24%, transparent 100%)",
+            WebkitMask:
+              "radial-gradient(circle at center, transparent calc(100% - 14px), white calc(100% - 10px), white 100%)",
+            mask:
+              "radial-gradient(circle at center, transparent calc(100% - 14px), white calc(100% - 10px), white 100%)",
+            filter: "blur(2px)",
+          }}
+        />
       </motion.div>
 
       <motion.div
