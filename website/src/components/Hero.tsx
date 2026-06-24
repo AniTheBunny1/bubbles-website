@@ -45,20 +45,58 @@ export function Hero() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative mb-14 aspect-square w-60 md:w-80"
       >
-        {/* breathing glow halo */}
+        {/* iridescent ambient halo — prismatic outer glow, slow breathing */}
         <motion.div
-          animate={{ scale: [1, 1.22, 1], opacity: [0.18, 0.38, 0.18] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-[-28%] rounded-full pointer-events-none"
+          animate={{ scale: [1, 1.20, 1], opacity: [0.18, 0.34, 0.18] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-[-32%] rounded-full pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(210,200,255,0.7) 0%, rgba(180,210,255,0.35) 45%, transparent 70%)",
-            filter: "blur(22px)",
+            background:
+              "conic-gradient(from 40deg, rgba(255,130,175,0.50), rgba(255,210,75,0.44), rgba(75,245,185,0.42), rgba(75,155,255,0.48), rgba(195,75,255,0.44), rgba(255,130,175,0.50))",
+            filter: "blur(28px)",
           }}
         />
+
+        {/* iridescent edge ring — masked to perimeter, rotating + shimmering */}
         <motion.div
-          animate={{ scale: [1, 1.04, 1] }}
+          animate={{
+            rotate: 360,
+            opacity: [0.48, 0.92, 0.62, 0.88, 0.48],
+          }}
+          transition={{
+            rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+            opacity: { duration: 4.2, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className="absolute pointer-events-none"
+          style={{
+            inset: "-3px",
+            borderRadius: "50%",
+            background:
+              "conic-gradient(from 0deg, rgba(255,100,158,0.95), rgba(255,210,65,0.90), rgba(65,250,180,0.88), rgba(65,148,255,0.92), rgba(188,65,255,0.90), rgba(255,100,158,0.95))",
+            WebkitMask:
+              "radial-gradient(circle at center, transparent calc(100% - 5px), white calc(100% - 4px), white 100%)",
+            mask:
+              "radial-gradient(circle at center, transparent calc(100% - 5px), white calc(100% - 4px), white 100%)",
+            filter: "blur(2.5px)",
+          }}
+        />
+
+        {/* caustic arc — bright crescent that sweeps the edge like sun on a dewdrop */}
+        <motion.div
+          animate={{ rotate: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-[-8%] rounded-full bg-[conic-gradient(from_120deg,rgba(255,255,255,.18),rgba(174,204,255,.18),rgba(255,188,230,.16),rgba(184,255,238,.14),rgba(255,255,255,.18))] opacity-50"
+          className="absolute pointer-events-none"
+          style={{
+            inset: "-3px",
+            borderRadius: "50%",
+            background:
+              "conic-gradient(from 248deg, transparent 0%, rgba(255,255,255,0.95) 4%, rgba(255,248,215,0.60) 13%, transparent 22%, transparent 100%)",
+            WebkitMask:
+              "radial-gradient(circle at center, transparent calc(100% - 6px), white calc(100% - 4px), white 100%)",
+            mask:
+              "radial-gradient(circle at center, transparent calc(100% - 6px), white calc(100% - 4px), white 100%)",
+            filter: "blur(1.8px)",
+          }}
         />
         <motion.div
           animate={{ y: [-8, 8, -8], scale: [1, 1.03, 1] }}
