@@ -176,13 +176,15 @@ export function Conversation() {
           <div
             className="absolute flex flex-col overflow-hidden z-10"
             style={{
-              // tucked ~0.7% under the phone frame (screen cutout edges measured
-              // at L 4.71% / R 4.86% / T 1.69%) so no background shows in the seam
-              top: "1.0%",
-              left: "4.0%",
-              right: "4.1%",
+              // sit right at the phone's screen cutout (measured edges
+              // L 4.71% / R 4.86% / T 1.69%, corner radius ~83px ≈ 12%/10%),
+              // tucked a hair under the frame. Radius matches the screen corner
+              // so the box neither leaves a seam nor pokes past the body curve.
+              top: "1.5%",
+              left: "4.5%",
+              right: "4.65%",
               bottom: "39.7%",
-              borderRadius: "8% 8% 0 0 / 3.5% 3.5% 0 0",
+              borderRadius: "12% 12% 0 0 / 10% 10% 0 0",
               backgroundColor: "#111b21",
             }}
           >
