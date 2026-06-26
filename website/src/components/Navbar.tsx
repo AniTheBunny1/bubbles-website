@@ -17,12 +17,15 @@ export function Navbar() {
         rel="noopener noreferrer"
         className="flex flex-col items-start"
       >
-        <span className="ml-1 text-xs font-light text-gray-600">Built by</span>
+        {/* "Built by" sized to span ~half the (square) logo width and sit snug on top */}
+        <span className="ml-1 w-10 text-center text-sm font-normal leading-none text-gray-600 md:w-20 md:text-xl">
+          Built by
+        </span>
         <motion.img
           whileHover={{ scale: 1.05 }}
           src="/hems-logo.webp"
           alt="Hems Logo"
-          className="-mt-1 h-20 md:h-40 w-auto object-contain cursor-pointer"
+          className="-mt-2 h-20 md:h-40 w-auto object-contain cursor-pointer md:-mt-3"
         />
       </a>
 
