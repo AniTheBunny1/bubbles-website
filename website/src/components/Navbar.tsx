@@ -11,21 +11,12 @@ export function Navbar() {
       className="fixed top-0 w-full z-50 px-5 md:px-10 py-4 flex items-center justify-between"
     >
       {/* Left: Hems Logo */}
-      <a
-        href="https://www.instagram.com/hemslabs/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex flex-col items-start"
-      >
-        {/* "Built by" sized to span ~half the (square) logo width and sit snug on top */}
-        <span className="ml-1 w-10 text-center text-sm font-normal leading-none text-gray-600 md:w-20 md:text-xl">
-          Built by
-        </span>
+      <a href="https://www.instagram.com/hemslabs/" target="_blank" rel="noopener noreferrer">
         <motion.img
           whileHover={{ scale: 1.05 }}
           src="/hems-logo.webp"
           alt="Hems Logo"
-          className="-mt-2 h-20 md:h-40 w-auto object-contain cursor-pointer md:-mt-3"
+          className="h-20 md:h-40 w-auto object-contain cursor-pointer"
         />
       </a>
 
