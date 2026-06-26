@@ -176,11 +176,13 @@ export function Conversation() {
           <div
             className="absolute flex flex-col overflow-hidden z-10"
             style={{
-              top: "1.67%",
-              left: "4.69%",
-              right: "4.99%",
+              // tucked ~0.7% under the phone frame (screen cutout edges measured
+              // at L 4.71% / R 4.86% / T 1.69%) so no background shows in the seam
+              top: "1.0%",
+              left: "4.0%",
+              right: "4.1%",
               bottom: "39.7%",
-              borderRadius: "7% 7% 0 0 / 3.25% 3.25% 0 0",
+              borderRadius: "8% 8% 0 0 / 3.5% 3.5% 0 0",
               backgroundColor: "#111b21",
             }}
           >
