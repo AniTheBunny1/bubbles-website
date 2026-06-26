@@ -111,8 +111,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-6xl font-semibold tracking-tight text-black md:text-8xl"
         >
-          An AI that <br className="hidden md:block" />
-          <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>actually does stuff</span>
+          <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>Built to do</span>
         </motion.h1>
 
         <motion.p
@@ -121,7 +120,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-xl"
         >
-          Lives in WhatsApp. Remembers everything. Does not just suggest, it executes.
+          Lives in WhatsApp. Remembers your life. Does the boring.
         </motion.p>
       </motion.div>
     </section>
