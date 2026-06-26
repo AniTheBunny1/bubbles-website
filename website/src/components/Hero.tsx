@@ -111,7 +111,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-6xl font-semibold tracking-tight text-black md:text-8xl"
         >
-          <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>Built to do</span>
+          <span style={{ color: "#000000", WebkitTextFillColor: "#000000" }}>Bubbles</span>
         </motion.h1>
 
         <motion.p
@@ -120,7 +120,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-xl"
         >
-          Lives in WhatsApp. Remembers your life. Does the boring.
+          The conversation that runs your life.
         </motion.p>
       </motion.div>
     </section>
