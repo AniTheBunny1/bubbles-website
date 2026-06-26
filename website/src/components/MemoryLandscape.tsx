@@ -46,7 +46,7 @@ export function MemoryLandscape() {
   const titleY       = useTransform(scrollYProgress, [0.03, 0.15], [40, 0]);
 
   return (
-    <section ref={ref} className="relative z-10 min-h-[200vh] px-5 py-32">
+    <section ref={ref} className="relative z-10 min-h-[200vh] overflow-x-clip px-5 py-32">
 
       {/* Giant partially off-screen bubbles — atmospheric depth */}
       <GiantBubble size={900}  posX="-120px"              posY="80px"               opacity={0.14} rotDur={90}  />

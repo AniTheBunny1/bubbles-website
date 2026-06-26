@@ -20,6 +20,13 @@ html {
   min-height: 100%;
   position: relative;
   scroll-behavior: smooth;
+  /* clip (not hidden) so off-screen decorative bubbles can't widen the page
+     on mobile, without creating a scroll container that would break sticky */
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
 }
 
 html::before {

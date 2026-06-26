@@ -16,7 +16,7 @@ export function Navbar() {
           whileHover={{ scale: 1.05 }}
           src="/hems-logo.webp"
           alt="Hems Logo"
-          className="h-32 md:h-40 w-auto object-contain cursor-pointer"
+          className="h-20 md:h-40 w-auto object-contain cursor-pointer"
         />
       </a>
 
