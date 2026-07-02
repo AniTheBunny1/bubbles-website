@@ -22,9 +22,9 @@ export function Waitlist() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams({ 
-          email: formData.email, 
-          phone: formData.phone 
+        body: new URLSearchParams({
+          email: formData.email,
+          phone: formData.phone,
         }),
       });
 
@@ -37,27 +37,34 @@ export function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="relative z-10 overflow-hidden px-4 py-40">
-      <motion.div 
-        initial={{ opacity: 0, y: 24 }}
+    <section id="waitlist" className="relative z-10 px-4 py-36">
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="relative z-10 mx-auto max-w-xl text-center"
+        viewport={{ once: true, margin: "-12%" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 mx-auto max-w-md text-center"
       >
-        <p className="mb-8 text-lg text-black/55">Bubbles is in early access.</p>
+        <h2 className="text-4xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">
+          Early access is open.
+        </h2>
+        <p className="mt-4 text-lg text-[#6e6e73]">
+          Leave your number. Bubbles texts you first.
+        </p>
 
         {status === "success" ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="py-8 text-center"
+            className="py-10 text-center"
           >
-            <h3 className="mb-3 text-3xl font-semibold tracking-tight text-black">You are in.</h3>
-            <p className="text-black/55">We will be in touch soon.</p>
+            <h3 className="mb-2 text-2xl font-semibold tracking-tight text-[#1d1d1f]">
+              You are in.
+            </h3>
+            <p className="text-[#6e6e73]">We will be in touch soon.</p>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-3">
             <input
               type="email"
               name="email"
@@ -65,7 +72,7 @@ export function Waitlist() {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
-              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 outline-none transition focus:border-white/80"
+              className="w-full rounded-2xl border border-black/10 bg-white/70 px-5 py-4 text-[#1d1d1f] placeholder-black/35 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none backdrop-blur transition focus:border-black/30"
             />
 
             <input
@@ -75,7 +82,7 @@ export function Waitlist() {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
-              className="w-full rounded-full border border-white/45 bg-white/30 px-5 py-4 text-gray-900 placeholder-gray-500 outline-none transition focus:border-white/80"
+              className="w-full rounded-2xl border border-black/10 bg-white/70 px-5 py-4 text-[#1d1d1f] placeholder-black/35 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none backdrop-blur transition focus:border-black/30"
             />
 
             <motion.button
@@ -83,13 +90,17 @@ export function Waitlist() {
               whileTap={{ scale: 0.985 }}
               type="submit"
               disabled={status === "loading"}
-              className="w-full rounded-full bg-black/80 px-6 py-4 font-medium text-white shadow-[0_20px_80px_rgba(0,0,0,.18)] transition disabled:opacity-50"
+              className="w-full rounded-2xl bg-[#1d1d1f] px-6 py-4 font-medium text-white shadow-[0_12px_40px_rgba(0,0,0,0.16)] transition disabled:opacity-50"
             >
               {status === "loading" ? "Joining..." : "Request early access"}
             </motion.button>
 
             {status === "error" && (
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-3 text-sm text-red-500">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="pt-3 text-sm text-red-500"
+              >
                 Something went wrong. Please try again.
               </motion.p>
             )}

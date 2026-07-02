@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --foreground: #0a0a0a;
-  --text-secondary: #666666;
-  --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --foreground: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Segoe UI", Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --color-secondary: var(--text-secondary);
+  --font-sans: var(--font-system);
 }
 
 /* ── Base ────────────────────────────────────────── */
@@ -18,17 +18,14 @@
 html {
   background-color: #ede8f5;
   min-height: 100%;
-  position: relative;
   scroll-behavior: smooth;
-  /* clip (not hidden) so off-screen decorative bubbles can't widen the page
+  /* clip (not hidden) so off-screen decorative glows can't widen the page
      on mobile, without creating a scroll container that would break sticky */
   overflow-x: clip;
 }
 
-body {
-  overflow-x: clip;
-}
-
+/* Instant first-paint background. Renders before any JS so the page is
+   never blank; ParallaxAtmosphere mounts its animated copy on top. */
 html::before {
   content: "";
   position: fixed;
@@ -40,6 +37,7 @@ html::before {
 }
 
 body {
+  overflow-x: clip;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -47,69 +45,81 @@ body {
 }
 
 ::selection {
-  background-color: rgba(180, 160, 255, 0.2);
+  background-color: rgba(160, 150, 255, 0.22);
   color: inherit;
 }
 
-/* ── Dream Keyframes ─────────────────────────────── */
+/* ── Keyframes ───────────────────────────────────── */
 
-/* Slow horizontal drift for cloud layers */
-@keyframes drift {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(30px); }
-  100% { transform: translateX(0); }
-}
-@keyframes drift-reverse {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(-25px); }
-  100% { transform: translateX(0); }
-}
-
-/* Gentle breathing scale pulse */
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.025); }
-}
-
-/* Slow hue rotation for iridescent refractions */
-@keyframes iridescent-shift {
-  0%   { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-/* Particle twinkle */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.15; }
-  50%      { opacity: 0.6; }
-}
-
-/* Very gentle vertical float */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-12px); }
+  50%      { transform: translateY(-10px); }
 }
 
-@keyframes drift-slow {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50%      { transform: translate3d(14px, -10px, 0) rotate(1.5deg); }
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* Content emerge from below */
-@keyframes emerge {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes drift-glow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(2%, -3%, 0) scale(1.06); }
 }
 
-/* Star field subtle pulse */
-@keyframes star-pulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50%      { opacity: 0.7; transform: scale(1.3); }
+/* ═══════════════════════════════════════════════════
+   ATMOSPHERIC ANIMATION SYSTEM
+   Living, breathing background (ParallaxAtmosphere)
+   ═══════════════════════════════════════════════════ */
+
+/* The master bg image drifts imperceptibly.
+   Cubic-bezier avoids any visible restart. */
+@keyframes camera-drift {
+  0%   { transform: translate3d(0px, 0px, 0) scale(1.00); }
+  25%  { transform: translate3d(10px, -7px, 0) scale(1.012); }
+  50%  { transform: translate3d(-8px, 5px, 0) scale(1.02); }
+  75%  { transform: translate3d(14px, 8px, 0) scale(1.008); }
+  100% { transform: translate3d(0px, 0px, 0) scale(1.00); }
+}
+
+@keyframes cloud-drift-near {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(8px, -3px, 0) scale(1.008); }
+  66%  { transform: translate3d(-6px, 4px, 0) scale(0.995); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes cloud-drift-far {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  40%  { transform: translate3d(-4px, 2px, 0) scale(1.005); }
+  70%  { transform: translate3d(5px, -3px, 0) scale(0.998); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes light-breathe {
+  0%, 100% { opacity: 0.04; transform: translate3d(0, 0, 0) rotate(-15deg); }
+  30%      { opacity: 0.065; transform: translate3d(3px, -2px, 0) rotate(-14deg); }
+  60%      { opacity: 0.035; transform: translate3d(-2px, 1px, 0) rotate(-16deg); }
+}
+
+@keyframes colour-shift {
+  0%   { filter: hue-rotate(0deg) saturate(1.0) brightness(1.0); }
+  33%  { filter: hue-rotate(1.5deg) saturate(1.02) brightness(1.01); }
+  66%  { filter: hue-rotate(-1deg) saturate(0.98) brightness(0.99); }
+  100% { filter: hue-rotate(0deg) saturate(1.0) brightness(1.0); }
+}
+
+@keyframes particle-rise {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%  { opacity: var(--p-opacity, 0.04); }
+  90%  { opacity: var(--p-opacity, 0.04); }
+  100% { transform: translate3d(var(--p-drift, 8px), -120px, 0); opacity: 0; }
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-2px, 1px); }
+  50%  { transform: translate(1px, -2px); }
+  75%  { transform: translate(-1px, 2px); }
+  100% { transform: translate(0, 0); }
 }
 
 /* ── Utilities ───────────────────────────────────── */
@@ -122,46 +132,25 @@ body {
   display: none;
 }
 
-@utility float-animation {
-  animation: float 6s ease-in-out infinite;
+/* Iridescent gradient text, pulled from the bubble's palette */
+@utility text-iridescent {
+  background-image: linear-gradient(
+    100deg,
+    #7aa8ff 0%,
+    #b28dff 28%,
+    #ff8fd0 55%,
+    #8fd0ff 82%,
+    #7aa8ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-@utility breathe-animation {
-  animation: breathe 8s ease-in-out infinite;
-}
-
-@utility drift-animation {
-  animation: drift 40s ease-in-out infinite;
-}
-
-@utility twinkle-animation {
-  animation: twinkle 4s ease-in-out infinite;
-}
-
-@utility iridescent-animation {
-  animation: iridescent-shift 26s linear infinite;
-}
-
-@utility drift-slow {
-  animation: drift-slow 18s ease-in-out infinite;
-}
-
-@utility text-shadow-soft {
-  text-shadow: 0 1px 12px rgba(20, 20, 40, 0.08);
-}
-
-@utility bubble-orb {
-  background:
-    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.86), transparent 28%),
-    radial-gradient(circle at 68% 76%, rgba(178, 213, 255, 0.38), transparent 42%),
-    conic-gradient(from 110deg, rgba(255, 255, 255, 0.42), rgba(255, 190, 232, 0.24), rgba(180, 235, 255, 0.24), rgba(255, 255, 255, 0.42));
-  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.3);
-  animation: float 12s ease-in-out infinite;
-}
-
-/* Film grain overlay for dark sections */
+/* Barely-there grain so the flat fields read as paper, not pixels */
 @utility film-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }

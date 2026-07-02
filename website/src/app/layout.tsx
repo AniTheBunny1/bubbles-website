@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Bubbles",
-  description: "Your personal AI operator.",
+  description: "Your executive assistant. It lives on WhatsApp.",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full scroll-smooth antialiased selection:bg-blue-100 selection:text-blue-900"
+      className="h-full scroll-smooth antialiased"
     >
       <head>
         <link rel="icon" href="/icon.png?v=2" type="image/png" />
