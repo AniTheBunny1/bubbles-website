@@ -59,6 +59,16 @@ const WINDOWS: [number, number, number, number][] = [
   [0.68, 0.76, 0.90, 0.97],
 ];
 
+// Irregular polygons — fragments of a burst soap bubble
+const SHARD_SHAPES = [
+  "polygon(8% 2%, 96% 0%, 100% 88%, 88% 100%, 2% 96%, 0% 12%)",
+  "polygon(4% 6%, 88% 0%, 100% 14%, 98% 92%, 82% 100%, 6% 98%, 0% 58%)",
+  "polygon(14% 0%, 100% 6%, 94% 96%, 86% 100%, 0% 88%, 6% 28%)",
+  "polygon(6% 10%, 88% 2%, 100% 82%, 90% 100%, 18% 96%, 0% 64%, 10% 28%)",
+];
+
+const SHARD_ROTATIONS = ["-2.5deg", "2deg", "-1.5deg", "3deg"];
+
 export function Statements() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -211,14 +221,14 @@ export function Statements() {
           </motion.div>
         </motion.div>
 
-        {/* evidence chips ringing the bubble */}
+        {/* glass shards of evidence ringing the bubble */}
         <div
           className="pointer-events-none absolute"
           style={{ width: "min(96vw, 760px)", height: "min(96vw, 700px)" }}
         >
           {ACTS.map((act, i) =>
             act.chips.map((chip, j) => (
-              <Chip
+              <Shard
                 key={chip.text}
                 chip={chip}
                 window={WINDOWS[i]}
@@ -261,7 +271,7 @@ function Statement({
   );
 }
 
-function Chip({
+function Shard({
   chip,
   window: [a, b, c, d],
   index,
@@ -272,29 +282,61 @@ function Chip({
   index: number;
   progress: MotionValue<number>;
 }) {
-  // chips trail the statement slightly, each a beat later than the last
+  // shards trail the statement slightly, each a beat later than the last
   const lag = index * 0.018;
   const opacity = useTransform(progress, [a + lag, b + lag, c, d], [0, 1, 1, 0]);
   const drift = index % 2 === 0 ? 34 : -34;
   const y = useTransform(progress, [a + lag, b + lag, c, d], [drift, 0, 0, -drift * 0.6]);
   const scale = useTransform(progress, [a + lag, b + lag], [0.85, 1]);
+  const shape = SHARD_SHAPES[index % SHARD_SHAPES.length];
 
   return (
     <motion.div
-      style={{ opacity, y, scale, left: chip.left, top: chip.top }}
+      style={{
+        opacity,
+        y,
+        scale,
+        left: chip.left,
+        top: chip.top,
+        rotate: SHARD_ROTATIONS[index % SHARD_ROTATIONS.length],
+      }}
       className="absolute"
     >
       <motion.div
-        animate={{ y: [-6, 6, -6] }}
+        animate={{ y: [-7, 7, -7], rotate: [-0.8, 0.8, -0.8] }}
         transition={{
           duration: 4.6 + index * 0.7,
           repeat: Infinity,
           ease: "easeInOut",
           delay: chip.delay,
         }}
-        className="rounded-full border border-white/60 bg-white/45 px-4 py-2 text-sm font-medium text-black/60 shadow-[0_4px_24px_rgba(140,130,200,0.14)] backdrop-blur-md md:text-base"
+        className="relative"
       >
-        {chip.text}
+        {/* glass membrane */}
+        <div
+          className="pointer-events-none absolute backdrop-blur-md"
+          style={{
+            inset: "-13px -20px",
+            clipPath: shape,
+            background: "rgba(244, 246, 255, 0.16)",
+            boxShadow:
+              "inset 0 0 0 0.5px rgba(220, 230, 255, 0.55), 0 4px 20px rgba(140, 130, 200, 0.10)",
+          }}
+        />
+        {/* iridescent edge shimmer */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            inset: "-13px -20px",
+            clipPath: shape,
+            background:
+              "conic-gradient(from 200deg at 50% 50%, rgba(255,130,170,0.10), rgba(255,220,80,0.08), rgba(80,240,200,0.08), rgba(80,160,255,0.10), rgba(200,90,255,0.09), rgba(255,130,170,0.10))",
+            opacity: 0.85,
+          }}
+        />
+        <p className="relative z-10 text-sm font-medium text-black/65 md:text-base">
+          {chip.text}
+        </p>
       </motion.div>
     </motion.div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 
 /* ═══════════════════════════════════════════════════════════════════
    PREMIUM ATMOSPHERIC BACKGROUND
@@ -49,10 +49,6 @@ export function ParallaxAtmosphere() {
   const lightParX  = useTransform(mouseRawX, [-1, 1], [8, -8]);
   const lightParY  = useTransform(mouseRawY, [-1, 1], [5, -5]);
 
-  /* ── Layer 8: Scroll parallax ─────────────────────────────────── */
-  const { scrollY } = useScroll();
-  const scrollBgY   = useTransform(scrollY, [0, 4000], [0, -800]);
-
   useEffect(() => {
     setMounted(true);
     setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
@@ -79,16 +75,17 @@ export function ParallaxAtmosphere() {
       className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
     >
       {/* ═══════════════════════════════════════════════════════════
-          LAYER 1 + 8 combined: Camera drift + scroll parallax
-          The existing bg-clouds.webp with slow imperceptible drift.
-          Scroll moves it at ~20% speed (built into scrollBgY).
+          LAYER 1: Camera drift
+          The bg-clouds.webp with slow imperceptible drift. Fixed to
+          the viewport — scrolling never translates the sky, so it
+          stays seamless over any page length.
          ═══════════════════════════════════════════════════════════ */}
       <motion.div
         className="absolute"
         style={{
           inset: "-30px", /* extra bleed to hide edges during drift */
-          y: scrollBgY,
           x: isTouch ? 0 : bgParX,
+          y: isTouch ? 0 : bgParY,
           willChange: "transform",
         }}
       >
@@ -102,6 +99,23 @@ export function ParallaxAtmosphere() {
           }}
         />
       </motion.div>
+
+      {/* ═══════════════════════════════════════════════════════════
+          LAYER 1.5: Aurora wash
+          A huge iridescent conic gradient turning very slowly over
+          the sky, so the light itself visibly lives and moves.
+         ═══════════════════════════════════════════════════════════ */}
+      <div
+        className="absolute"
+        style={{
+          inset: "-40%",
+          background:
+            "conic-gradient(from 0deg, transparent 12%, rgba(255,140,185,0.07) 26%, rgba(255,215,95,0.05) 38%, rgba(95,245,190,0.05) 52%, rgba(95,165,255,0.07) 66%, rgba(200,95,255,0.06) 80%, transparent 92%)",
+          filter: "blur(70px)",
+          animation: "slow-spin 90s linear infinite",
+          willChange: "transform",
+        }}
+      />
 
       {/* ═══════════════════════════════════════════════════════════
           LAYER 2: Cloud depth layers
